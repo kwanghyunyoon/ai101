@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   alternateLinks,
+  lessonPath,
   localizePath,
   negotiateLanguage,
   resolvePreferredLanguage,
@@ -23,6 +24,12 @@ describe("localizePath / splitLangFromPath", () => {
 
   it("normalises a logical path that is missing its slashes", () => {
     expect(localizePath("lessons/x", "en")).toBe("/en/lessons/x/");
+  });
+
+  it("builds a Lesson route from its entry id", () => {
+    expect(lessonPath("what-an-llm-actually-is", "en")).toBe(
+      "/en/lessons/what-an-llm-actually-is/",
+    );
   });
 
   it("round-trips a prefixed path back to its language and logical path", () => {
