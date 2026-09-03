@@ -1,0 +1,209 @@
+---
+id: using-ai-safely-and-honestly
+order: 5
+minutes: 7
+title: Using AI safely and honestly
+reviewed: "2026-09-02"
+knowledgeCheck:
+  - prompt: >-
+      You want help writing a reply to a hard email from a coworker. What is the
+      safe way to use a chatbot for this?
+    correctOptionId: paraphrase
+    options:
+      - id: paraphrase
+        text: >-
+          Describe the situation in your own words and leave out names, account
+          numbers, and anything private about the other person.
+        explanation: >-
+          Right. The tool can help with tone and structure from a short summary.
+          It does not need real names or private details to do that.
+      - id: paste-all
+        text: >-
+          Paste the whole email thread in so the tool has full context.
+        explanation: >-
+          Risky. That thread may hold your coworker's private information, and on
+          a free plan it can be stored and used to improve the model.
+      - id: screenshot
+        text: >-
+          Upload a screenshot instead of text, since images are not really data.
+        explanation: >-
+          No. An image of a document is still the document. The tool can read it,
+          and it is stored the same way.
+  - prompt: >-
+      A chatbot gives you a confident answer about a medical dose for a family
+      member. What should you do?
+    correctOptionId: verify
+    options:
+      - id: verify
+        text: >-
+          Treat it as a starting point and confirm it with a pharmacist, doctor,
+          or an official source before acting.
+        explanation: >-
+          Right. It is a tool, not an authority. On anything that affects health,
+          money, or the law, a real source has to confirm it.
+      - id: trust
+        text: >-
+          Follow it, because the tool was trained on huge amounts of medical
+          text.
+        explanation: >-
+          No. Training on medical text does not make it accountable or correct.
+          It can state a wrong dose in the same calm, sure tone as a right one.
+      - id: ask-again
+        text: >-
+          Ask the same question three times and go with the answer it repeats.
+        explanation: >-
+          No. Repeating an answer is not the same as checking it. It can be
+          consistently wrong.
+  - prompt: >-
+      When does it matter to say that you used AI to help with something?
+    correctOptionId: school-work
+    options:
+      - id: school-work
+        text: >-
+          When someone is judging the work as yours — schoolwork, work you are
+          paid for, or something you publish.
+        explanation: >-
+          Right. In those settings people are trusting that the work is yours.
+          Many schools and workplaces now have rules, so check and disclose.
+      - id: never
+        text: >-
+          Never — how you made something is your own business.
+        explanation: >-
+          Not always. For a private grocery list, sure. But hiding AI use in
+          graded, paid, or published work can break real rules.
+      - id: always
+        text: >-
+          Always, even for a text to a friend or a personal to-do list.
+        explanation: >-
+          That is more than you need. Disclosure matters where the work is being
+          evaluated or trusted, not for private everyday tasks.
+  - prompt: >-
+      You ask a chatbot for "a typical family" or "a list of the best films" and
+      get a narrow, one-note answer. Why?
+    correctOptionId: training
+    options:
+      - id: training
+        text: >-
+          It learned from human writing that over-represents some places and
+          views, so its default leans that way.
+        explanation: >-
+          Right. The training text is uneven, and the model does not know it is
+          not neutral. Treat its default as one common view, not the only one.
+      - id: broken
+        text: >-
+          The model is malfunctioning and should be restarted.
+        explanation: >-
+          No. A narrow answer is the model working normally — it is reflecting
+          the patterns it was trained on, not failing.
+      - id: privacy
+        text: >-
+          It does not have enough of your personal data yet.
+        explanation: >-
+          No. This is about the writing it was trained on, not about how much it
+          knows about you. More personal data would not fix the lean.
+---
+
+import TryIt from "../../components/TryIt.astro";
+
+These tools are useful, but how you use them matters. This Lesson covers a few
+habits. Keep private things out of the chat. Check facts before you trust them.
+Say when you used AI. Watch for bias, opt out of training if you want, and treat
+the tool as a tool, not an authority.
+
+## Do not paste in secrets or other people's private data
+
+Whatever you type into a chatbot leaves your device and goes to a company's
+servers. On a free plan, it may also be stored and used to improve the model,
+and staff may review some chats.
+
+So keep these out of the box:
+
+- Passwords, bank or card numbers, and one-time codes.
+- Your full ID numbers — passport, national ID, social security.
+- Anything private about someone else: a friend's health, a coworker's contract,
+  a client's records.
+- Work documents your employer treats as confidential.
+
+You can still get help. Describe the situation in general words. Swap real names
+for "my manager" or "the client." The tool does not need the real details to fix
+your tone or structure.
+
+## Verify anything factual before you rely on it
+
+An earlier Lesson showed that these tools can state a wrong fact in a confident
+voice. That does not stop mattering when the answer sounds careful.
+
+Some facts need a real source before you act on them. A date, a price, a legal
+rule, a medical dose, a citation. Confirm each one against a search tool that
+links to pages, or a person whose job it is to know.
+
+## Say when you used AI, where it matters
+
+For a private text or your own to-do list, how you wrote it is your business. It
+is different when someone is judging the work as yours:
+
+- **School:** many schools now have clear rules. Some allow AI help if you
+  disclose it; some do not allow it at all. Ask before you use it.
+- **Work:** your employer may have a policy on AI-written material, especially
+  anything sent to customers or the public.
+- **Publishing:** if you put something out under your name — an article, a
+  review, a photo — readers are trusting it is yours. Disclose AI use when it
+  would change how they read it.
+
+The simple test: if someone would feel misled to learn AI helped, say so up
+front.
+
+## Its answers carry the bias of its training text
+
+The model learned from a huge amount of human writing, and that writing is not
+evenly spread. Some places, languages, and viewpoints are far more represented
+than others.
+
+So its "normal" answer leans toward whatever was most common in that text. Ask it
+for a picture of a "doctor" or a list of "great novels" and the lean shows. It is
+not neutral, and it does not know that. Treat its default as one common view, not
+the only one.
+
+## How to keep your chats out of training
+
+Most major tools now have a setting to keep your conversations out of model
+training. The exact path changes, so check the app. As of late 2026:
+
+- **ChatGPT:** in Settings, open Data Controls and turn off the option about
+  improving the model for everyone.
+- **Gemini:** in Settings, turn off "Gemini Apps Activity" (also at
+  myactivity.google.com).
+- **Claude:** in Settings, open Privacy and turn off the option about helping
+  improve Claude.
+- **Copilot (Microsoft):** in Settings, look under Privacy for a model-training
+  toggle and turn it off.
+- **Grok:** in Settings, look for a data-sharing option about training and turn
+  it off.
+
+Turning chat history off usually drops it from training too. The switch helps,
+but it is a backstop. The main habit is still to keep sensitive things out of
+the chat.
+
+## It is a tool, not an authority
+
+A chatbot has no job title, no license, and no accountability. It cannot be your
+doctor, lawyer, accountant, or therapist. It can help you understand a topic,
+draft a question for a real professional, or organize what you already know.
+
+For decisions about your health, money, legal standing, or safety, a person or an
+official source has to be the one you rely on.
+
+## Try it: run the safety check on a real task
+
+Pick something you would actually want help with this week. Before you open a
+chatbot, run it through this check.
+
+<TryIt
+  prompt="I want to use a chatbot to help me [your task]. Here is what I would type: [your draft prompt]. Point out any names, numbers, or private details I should remove or make generic first, and tell me which facts in the answer I will need to verify."
+  lookFor="A useful reply flags specific things to strip out — a real name, an address, an account number — and names the parts of the future answer you should not take on trust. A weak reply just says 'looks fine.'"
+/>
+
+Strip out what is private, check what is factual, and be honest about AI's part
+when the work is judged as yours. That is the whole habit.
+
+That is the last Lesson — next you will see a short recap of everything you have covered.
