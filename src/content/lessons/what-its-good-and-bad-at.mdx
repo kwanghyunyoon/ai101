@@ -1,0 +1,148 @@
+---
+id: what-its-good-and-bad-at
+order: 2
+minutes: 6
+title: What it's good and bad at
+knowledgeCheck:
+  - prompt: >-
+      Which task is a language model best suited for?
+    correctOptionId: rephrase
+    options:
+      - id: rephrase
+        text: Rewriting a blunt email so it sounds polite
+        explanation: >-
+          Right. Reshaping text you give it — rephrasing, shortening, changing
+          the tone — is squarely what a language model is good at.
+      - id: balance
+        text: Telling you the exact balance of your bank account
+        explanation: >-
+          No. That is a specific live fact with a real source of truth. The
+          model has no access to it and will only guess.
+      - id: tax
+        text: Working out your exact tax bill to the dollar
+        explanation: >-
+          No. That is precise, multi-step math with a right answer. The model
+          often gets the steps roughly right and the final number wrong.
+  - prompt: >-
+      You ask a model about an event from last week and it answers in confident
+      detail. What is the safe assumption?
+    correctOptionId: stale
+    options:
+      - id: stale
+        text: >-
+          Its training stopped at some point, so recent events may be missing or
+          made up
+        explanation: >-
+          Right. A plain model only knows text from before its training cut-off.
+          For anything recent, check a tool that actually searches the web.
+      - id: trust
+        text: It sounds sure, so the details are probably accurate
+        explanation: >-
+          No. Fluent, confident wording is what the model produces by default. It
+          is not a signal that the facts are right.
+      - id: live
+        text: Models always have a live feed of the news
+        explanation: >-
+          No. Some tools add web search on top, but a plain model has no live
+          feed and works only from old training text.
+  - prompt: >-
+      "Hallucination," in the context of these tools, means:
+    correctOptionId: confident
+    options:
+      - id: confident
+        text: The model states something false in the same fluent, confident tone as the truth
+        explanation: >-
+          Right. Its goal is text that reads well, not text that is true, so a
+          wrong answer looks exactly as sure as a right one.
+      - id: crash
+        text: The model freezes or shows an error message
+        explanation: >-
+          No. That is a normal software failure. Hallucination is when the answer
+          looks fine but the content is invented.
+      - id: refuse
+        text: The model refuses to answer a question
+        explanation: >-
+          No. A refusal is the model declining. Hallucination is the opposite —
+          it answers freely, but the answer is not real.
+  - prompt: >-
+      What is the best habit when an answer includes a specific fact, name, or number?
+    correctOptionId: verify
+    options:
+      - id: verify
+        text: Use the model for the draft, then check any hard fact against a real source
+        explanation: >-
+          Right. Lean on it for language and structure. Confirm names, dates,
+          quotes, and figures somewhere that has a source of truth.
+      - id: ask-sure
+        text: Ask the model "are you sure?" and trust it if it says yes
+        explanation: >-
+          Not reliable. It does not know what it does not know, so "are you sure?"
+          just produces more confident text.
+      - id: never
+        text: Never use the model for anything involving facts
+        explanation: >-
+          Too strong. It is still useful for organizing and explaining. The point
+          is to verify the specific facts, not to avoid the tool.
+---
+
+import TryIt from "../../components/TryIt.astro";
+
+Knowing where these tools are strong and where they fail is what keeps you from
+trusting a confident wrong answer. The short version: a language model is very
+good with words and shaky with anything that has one correct answer.
+
+## Strong: shaping and explaining language
+
+The model's whole skill is producing fluent text. So it is genuinely useful when
+the job is about words:
+
+- Draft an email, a message, or a first pass at a document.
+- Rephrase something to be shorter, warmer, or more formal.
+- Summarize a long article or thread into a few points.
+- Explain a hard idea in plain terms.
+- Translate a message between languages.
+- Brainstorm names, angles, or a list of options to react to.
+
+For example: paste in a rude email from your landlord and ask for a calm reply
+that still makes your point. You get a solid first draft in seconds. You can read
+it and fix it yourself, because you already know what you meant. That is the
+sweet spot — you stay the editor.
+
+## Weak: exact facts, math, and recent events
+
+The same machine struggles when there is a single right answer it has to get
+exactly:
+
+- **Precise facts:** dates, prices, phone numbers, exact quotes, or the source a
+  claim came from. It may produce something that looks right and is off.
+- **Math and counting:** multi-step arithmetic, totals, anything where being
+  close is still wrong.
+- **Recent events:** its training stopped at some point. It does not know what
+  happened after that unless a separate search tool feeds it.
+- **Anything with a single official source** — a **source of truth**, like your
+  bank's record of your balance, today's weather, or the text of a law. The
+  model has no way to look these up on its own.
+
+## Hallucination: confidently wrong
+
+When the model does not have a fact, it does not stop or say "I don't know." It
+predicts the most natural-sounding text and keeps going. The result is a
+**hallucination** — a made-up detail, delivered in the same calm, sure tone as a
+real one.
+
+Here is a concrete case. You ask for three books on a niche topic. It gives you
+three titles, each with a real-sounding author and publisher. One of the books
+does not exist. Nothing in the wording warns you. The fake entry reads just like
+the real ones.
+
+This happens because fluent text is the goal, not true text. And the model
+**does not know what it does not know** — there is no inner voice checking its
+own claims.
+
+<TryIt
+  prompt="Write a short biography of me. My name is [your full name] and I [one true detail, e.g. 'work as a nurse in Ohio']."
+  lookFor="A careful answer sticks to the one fact you gave and says it does not know the rest. A weak answer invents a birth year, schools, or awards that sound plausible. Each invented line is a hallucination — a close look at how sure and wrong it can be at once."
+/>
+
+So the rule of thumb: use it for language, and check any hard fact yourself.
+Next, you will see how the way you ask changes what you get back.
