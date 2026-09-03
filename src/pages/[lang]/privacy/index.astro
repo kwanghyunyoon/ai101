@@ -22,13 +22,13 @@ const { lang } = Astro.params;
   <h2>Saved in your browser</h2>
   <p>Two small things are saved on your own device, so the site works the way you left it:</p>
   <ul>
-    <li>Which lessons you have finished. This drives the "done" count and the resume button.</li>
+    <li>Which lessons you have finished. This drives the "done" count and where you pick back up.</li>
     <li>Your language choice, so the site opens in that language next time.</li>
   </ul>
   <p>
-    Both are stored in your browser's local storage. They never leave your
-    device and we cannot see them. Clearing your browser data erases them, and
-    nothing breaks if you do.
+    Both live in local storage — a small space your browser keeps for this site.
+    They never leave your device and we cannot see them. Clearing your browser
+    data erases them, and nothing breaks if you do.
   </p>
 
   <h2>What we do not do</h2>
@@ -41,9 +41,13 @@ const { lang } = Astro.params;
 
   <h2>Visitor counts</h2>
   <p>
-    We use Cloudflare Web Analytics to count page views. It is aggregate only: a
-    tally of how many times each page loaded. It sets no cookies and does not
-    build a profile of you or track you across sites.
+    We use Cloudflare Web Analytics to see how the site is used. It shows
+    aggregate numbers only: how many times each page loaded, which sites link
+    here, and roughly which countries visitors come from.
+  </p>
+  <p>
+    It sets no cookies. It does not build a profile of you and does not track you
+    across other sites.
   </p>
 
   <h2>Questions</h2>
