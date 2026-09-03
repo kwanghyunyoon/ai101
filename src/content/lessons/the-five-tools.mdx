@@ -1,0 +1,216 @@
+---
+id: the-five-tools
+order: 4
+minutes: 8
+title: The five tools
+reviewed: "2026-09-02"
+knowledgeCheck:
+  - prompt: >-
+      You need to check a claim and want answers that show where each fact came
+      from. Which tool is built for that?
+    correctOptionId: perplexity
+    options:
+      - id: perplexity
+        text: Perplexity
+        explanation: >-
+          Right. Perplexity is the research tool. It searches the web and answers
+          with links to its sources, so you can click through and check.
+      - id: chatgpt
+        text: ChatGPT
+        explanation: >-
+          ChatGPT is a strong general assistant and can search the web, but its
+          default answers read like prose without sources. Perplexity puts the
+          citations front and center.
+      - id: grok
+        text: Grok
+        explanation: >-
+          Grok is good at what is being said on X right now, but it is a general
+          assistant, not a cited-source research tool.
+  - prompt: >-
+      A friend says "Claude is better than ChatGPT, everyone knows that." What is
+      the honest response?
+    correctOptionId: depends
+    options:
+      - id: depends
+        text: >-
+          It depends on the task — they overlap a lot, and each has areas where
+          it tends to do better.
+        explanation: >-
+          Right. These tools are more alike than different. Claude leans toward
+          long documents and careful writing; ChatGPT has the largest set of
+          extra features. "Better" only means something once you name the job.
+      - id: yes
+        text: >-
+          Yes — whichever tool is "ahead" this month is the one to use.
+        explanation: >-
+          The lead changes constantly and rarely matches your real tasks.
+          Chasing it wastes time. Pick based on the work you actually do.
+      - id: no
+        text: No — ChatGPT is the most popular, so it is the best one.
+        explanation: >-
+          Popularity is not quality. ChatGPT's edge is its ecosystem and
+          features, not that it beats the others at every task.
+  - prompt: >-
+      You already write a lot in Google Docs and Gmail and want AI help right
+      where you work. Which tool fits that most naturally?
+    correctOptionId: gemini
+    options:
+      - id: gemini
+        text: Gemini
+        explanation: >-
+          Right. Gemini is Google's assistant and is wired into Google's own
+          apps, so it shows up inside the tools you may already use.
+      - id: claude
+        text: Claude
+        explanation: >-
+          Claude is strong for long documents and careful writing, but it is not
+          built into Google's apps the way Gemini is.
+      - id: perplexity
+        text: Perplexity
+        explanation: >-
+          Perplexity is for research with sources, not for drafting inside your
+          email and documents.
+  - prompt: >-
+      You want to know what people are posting about a news event in the last
+      hour. Which tool leans into that?
+    correctOptionId: grok
+    options:
+      - id: grok
+        text: Grok
+        explanation: >-
+          Right. Grok is built into X and is tuned for what is being said right
+          now. It pulls from live posts better than the others do.
+      - id: claude
+        text: Claude
+        explanation: >-
+          Claude is strong for long documents and careful writing, but it is not
+          wired into a live feed of public posts.
+      - id: perplexity
+        text: Perplexity
+        explanation: >-
+          Perplexity searches the web and cites sources, which is great for
+          checking facts, but it is not focused on the last hour of social
+          posts.
+---
+
+import TryIt from "../../components/TryIt.astro";
+
+You have heard the names — ChatGPT, Claude, Gemini, Grok, Perplexity — and maybe
+wondered which one you are "supposed" to use. This Lesson gives you a short,
+honest read on each, so you can pick one and get started.
+
+## They are more alike than different
+
+Four of these five are general assistants. You type a question or a request, and
+they write back. They all handle the everyday jobs well: drafting an email,
+planning a trip, explaining a topic, summarizing a page. The gaps between them
+are real but small, and they shift often.
+
+So do not agonize over the choice. The differences below are tendencies, not
+hard rules. Perplexity is the one true exception, and we will come back to it.
+
+This Lesson avoids version numbers and "which one scored higher" claims on
+purpose. Those go stale in weeks. What each tool is *for* changes much more
+slowly. Check the "last reviewed" date at the top — if it is old, treat the
+specifics with care.
+
+## ChatGPT — the default all-rounder
+
+**Best at:** a bit of everything. It has the largest set of extra features. That
+includes voice chat, image generation, image reading, and many add-ons built by
+other companies.
+
+**Free vs paid:** a capable free tier. The paid plan raises usage limits and
+unlocks the newest features first.
+
+**How to start:** go to chatgpt.com or install the app, make an account, and
+type in the box.
+
+**One standout:** you can talk to it out loud and it talks back, which makes it
+easy to use while your hands are busy.
+
+## Claude — long documents and careful writing
+
+**Best at:** working with long documents, careful and natural-sounding writing,
+and coding help. It tends to follow detailed instructions closely and to say
+when it is unsure.
+
+**Free vs paid:** a usable free tier. The paid plan gives more usage and handles
+larger documents in one go.
+
+**How to start:** go to claude.ai or install the app, make an account, and start
+a chat.
+
+**One standout:** you can paste in a very long report or a whole set of notes
+and ask questions across all of it at once.
+
+## Gemini — tied into Google's apps
+
+**Best at:** being where you already work if you use Google. It connects to
+Gmail, Google Docs, and Search, and it handles large amounts of text in one
+prompt.
+
+**Free vs paid:** a free tier tied to your Google account. The paid plan comes
+bundled with extra Google storage and deeper access inside the Google apps.
+
+**How to start:** go to gemini.google.com and sign in with a Google account, or
+open it from the Google app.
+
+**One standout:** when you allow it, it can act on your own Gmail and Docs. For
+example: "find the flight confirmation in my inbox and add it to my calendar."
+
+## Grok — built into X, tuned for right now
+
+**Best at:** telling you what people are posting on X (formerly Twitter) at this
+moment. It has a looser content filter than the others, so it pushes back less
+on edgy or blunt requests.
+
+**Free vs paid:** a limited free tier. Fuller access comes with an X
+subscription or a paid Grok plan.
+
+**How to start:** open it inside the X app or go to grok.com and make an account.
+
+**One standout:** ask "what are people saying about this right now" and it pulls
+from live posts, which the others do less well.
+
+## Perplexity — the research one
+
+Perplexity is not a general assistant. It is closer to a search engine that
+writes you an answer. You ask a question and it searches the web. It replies with
+the key points, **plus numbered links to the pages it used**.
+
+**Best at:** looking things up when you need to trust and check the answer —
+prices, dates, "is this still true," comparing products.
+
+**Free vs paid:** a solid free tier. The paid plan adds deeper multi-step
+research and higher limits.
+
+**How to start:** go to perplexity.ai or install the app. You can ask a question
+without an account, but making one saves your history.
+
+**One standout:** every claim has a source you can click. When being able to
+verify matters, this is the one to reach for.
+
+## Try it: same question, two kinds of tool
+
+Ask a general assistant and Perplexity the same factual question and compare how
+each answers.
+
+<TryIt
+  prompt="What is the current recommended amount of daily water intake for adults, and has that guidance changed recently?"
+  lookFor="A similar summary from each, but Perplexity attaches numbered links you can open to check every claim while the general assistant mostly does not."
+/>
+
+## Pick one, stick with it for a week
+
+You do not need all five. For almost everything you will want to do, one general
+assistant is plenty. Add Perplexity when you have something to look up and
+verify.
+
+If you cannot decide, that is a sign the choice does not matter much yet. Pick
+one and put it on your phone. Use it for a week on real tasks — an email, a plan,
+a question you would have googled. You will learn more from that week than from
+any comparison.
+
+Next, you will look at how to use these tools safely and honestly — what not to
+paste in, and when to say you used AI.

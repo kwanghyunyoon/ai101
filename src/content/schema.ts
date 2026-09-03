@@ -36,12 +36,16 @@ const knowledgeCheckQuestionSchema = z
     { message: "option ids must be unique within a question", path: ["options"] },
   );
 
-/** Lesson frontmatter: stable id, ordering, time estimate, title, Knowledge Check. */
+/** Lesson frontmatter: stable id, ordering, time estimate, title, optional review date, Knowledge Check. */
 export const lessonFrontmatterSchema = z.object({
   id: z.string().min(1),
   order: z.number().int().positive(),
   minutes: z.number().int().positive(),
   title: z.string().min(1),
+  // ISO date (YYYY-MM-DD) a human last checked this Lesson's facts against the
+  // world. Only the tool-comparison Lesson needs it today, so it's optional; a
+  // route that has it renders a visible "last reviewed" line.
+  reviewed: z.iso.date("reviewed must be an ISO date, YYYY-MM-DD").optional(),
   knowledgeCheck: z.array(knowledgeCheckQuestionSchema).min(3).max(4),
 }).strict();
 

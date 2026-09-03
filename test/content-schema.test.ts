@@ -66,6 +66,16 @@ describe("lessonFrontmatterSchema", () => {
     expect(lessonFrontmatterSchema.safeParse(broken).success).toBe(false);
   });
 
+  it("accepts an optional ISO review date", () => {
+    const withDate = { ...structuredClone(validFrontmatter), reviewed: "2026-09-02" };
+    expect(lessonFrontmatterSchema.safeParse(withDate).success).toBe(true);
+  });
+
+  it("rejects a review date that is not an ISO YYYY-MM-DD string", () => {
+    const broken = { ...structuredClone(validFrontmatter), reviewed: "Sept 2, 2026" };
+    expect(lessonFrontmatterSchema.safeParse(broken).success).toBe(false);
+  });
+
   it("rejects a typo'd / unknown frontmatter key", () => {
     const broken = { ...structuredClone(validFrontmatter), estimatedMinutes: 6 };
     expect(lessonFrontmatterSchema.safeParse(broken).success).toBe(false);

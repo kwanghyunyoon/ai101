@@ -31,6 +31,18 @@ const hrefs = Object.fromEntries(
   allLessons.map((l) => [l.id, lessonPath(l.id, lang)]),
 );
 const doneHref = localizePath("/done/", lang);
+
+// A Lesson with a `reviewed` date (the tool-comparison one) shows when its
+// facts were last checked. Render the ISO date in the Learner's language rather
+// than raw "2026-09-02".
+const reviewedLabel = lesson.data.reviewed
+  ? new Date(`${lesson.data.reviewed}T00:00:00Z`).toLocaleDateString(lang, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: "UTC",
+    })
+  : null;
 ---
 
 <BaseLayout
@@ -43,6 +55,7 @@ const doneHref = localizePath("/done/", lang);
       Lesson {lesson.data.order} · about {lesson.data.minutes} min
     </p>
     <h1>{lesson.data.title}</h1>
+    {reviewedLabel && <p class="lesson-reviewed">Last reviewed: {reviewedLabel}</p>}
     <Content />
   </article>
 

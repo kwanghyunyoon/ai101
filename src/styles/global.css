@@ -144,6 +144,11 @@ a {
   font-size: 0.95rem;
 }
 
+.lesson-reviewed {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
 /* Try-It callout */
 .try-it {
   border: 1px solid var(--border);
