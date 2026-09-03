@@ -1,0 +1,119 @@
+/*
+ * Design tokens and base styles.
+ *
+ * Rule: every colour is defined once on bare :root (the light palette). The dark
+ * block only REASSIGNS those same tokens — it never introduces a colour that has
+ * no light-mode definition. Same for prefers-reduced-motion below.
+ */
+:root {
+  --bg: #ffffff;
+  --surface: #f4f5f7;
+  --text: #1a1a1a;
+  --text-muted: #55595f;
+  --accent: #1a56db;
+  --accent-contrast: #ffffff;
+  --border: #d7dae0;
+  --focus-ring: #1a56db;
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --measure: 42rem;
+  --space: 1rem;
+
+  --motion-duration: 200ms;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161a;
+    --surface: #1e2127;
+    --text: #f2f3f5;
+    --text-muted: #a9adb5;
+    --accent: #7aa2f7;
+    --accent-contrast: #14161a;
+    --border: #2c313a;
+    --focus-ring: #7aa2f7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration: 0ms;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  font-size: 1.125rem;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+a {
+  color: var(--accent);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  padding: 0.5rem 1rem;
+  z-index: 10;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+.app-header,
+.app-footer {
+  padding: var(--space);
+  background: var(--surface);
+  border-color: var(--border);
+  border-style: solid;
+  border-width: 0;
+}
+.app-header {
+  border-bottom-width: 1px;
+}
+.app-footer {
+  border-top-width: 1px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.app-main {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: calc(var(--space) * 2) var(--space);
+}
+
+.wordmark {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--text);
+}

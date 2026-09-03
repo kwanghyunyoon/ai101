@@ -1,0 +1,69 @@
+---
+import "../styles/global.css";
+import { SITE_TITLE, SITE_TAGLINE } from "../consts";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = SITE_TITLE, description = SITE_TAGLINE } = Astro.props;
+
+// Set PUBLIC_CF_BEACON_TOKEN (build env / Cloudflare Pages) to enable the
+// cookieless Web Analytics beacon. Absent in local dev; that is fine.
+const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+---
+
+<!doctype html>
+<html lang="en">
+  <!-- lang is hardcoded for the v1 scaffold. Known debt: i18n (issue #1) makes
+       every page path-prefixed (/en, /ko, /es); this shell must then take lang
+       and hreflang alternates from the route. -->
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1a56db" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icon.svg" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="app-header">
+      <a class="wordmark" href="/">AI 101</a>
+    </header>
+    <main id="main" class="app-main">
+      <slot />
+    </main>
+    <footer class="app-footer">
+      <p>
+        Free and open. Content licensed CC BY-SA 4.0, code licensed MIT.
+        Your progress stays in your browser — no account, no cookies.
+      </p>
+    </footer>
+
+    <script>
+      // Register the pass-through service worker (offline precache lands later).
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").catch(() => {
+            /* registration failure is non-fatal for the scaffold */
+          });
+        });
+      }
+    </script>
+
+    {
+      beaconToken && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token": "${beaconToken}"}`}
+        />
+      )
+    }
+  </body>
+</html>
