@@ -1,0 +1,49 @@
+---
+/*
+ * A Try-It callout: a labelled block with a copyable prompt and a one-line note
+ * on what to look for in the result. It never calls an API — it points the
+ * Learner at a real tool. Use inside Lesson MDX:
+ *
+ *   <TryIt prompt="Explain compound interest to me like I'm 12." look="A plain
+ *   answer with a concrete example, not a wall of jargon." />
+ */
+interface Props {
+  /** The exact text the Learner should paste into a tool. */
+  prompt: string;
+  /** One line on what a good response looks like. */
+  look: string;
+}
+
+const { prompt, look } = Astro.props;
+const copyId = `tryit-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<aside class="try-it" aria-label="Try it">
+  <p class="try-it-label">Try it</p>
+  <pre class="try-it-prompt" id={copyId}>{prompt}</pre>
+  <button type="button" class="try-it-copy" data-copy-target={copyId}>
+    Copy prompt
+  </button>
+  <p class="try-it-look"><strong>What to look for:</strong> {look}</p>
+</aside>
+
+<script>
+  // Progressive enhancement: the prompt is readable and selectable without JS;
+  // the button just saves a manual select-and-copy.
+  document.querySelectorAll<HTMLButtonElement>(".try-it-copy").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const target = document.getElementById(
+        button.dataset.copyTarget ?? "",
+      );
+      if (!target?.textContent) return;
+      try {
+        await navigator.clipboard.writeText(target.textContent);
+        const original = button.textContent;
+        button.textContent = "Copied";
+        setTimeout(() => (button.textContent = original), 2000);
+      } catch {
+        /* clipboard blocked (permissions, insecure context) — select manually */
+      }
+    });
+  });
+</script>

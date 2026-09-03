@@ -1,0 +1,29 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import KnowledgeCheck from "../../components/KnowledgeCheck.tsx";
+import { getLessons } from "../../lib/lessons";
+
+export async function getStaticPaths() {
+  const lessons = await getLessons();
+  return lessons.map((lesson) => ({
+    params: { slug: lesson.id },
+    props: { lesson },
+  }));
+}
+
+const { lesson } = Astro.props;
+const { Content } = await render(lesson);
+---
+
+<BaseLayout title={`${lesson.data.title} — AI 101`}>
+  <article class="lesson">
+    <p class="lesson-meta">
+      Lesson {lesson.data.order} · about {lesson.data.minutes} min
+    </p>
+    <h1>{lesson.data.title}</h1>
+    <Content />
+  </article>
+
+  <KnowledgeCheck questions={lesson.data.knowledgeCheck} client:visible />
+</BaseLayout>

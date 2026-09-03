@@ -117,3 +117,83 @@ a {
   text-decoration: none;
   color: var(--text);
 }
+
+.lesson-meta {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* Try-It callout */
+.try-it {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  background: var(--surface);
+  padding: var(--space);
+  margin: calc(var(--space) * 1.5) 0;
+}
+.try-it-label {
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.try-it-prompt {
+  white-space: pre-wrap;
+  font-family: inherit;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 0.75rem;
+  margin: 0;
+}
+.try-it-copy {
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.9rem;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+.try-it-look {
+  margin-bottom: 0;
+}
+
+/* Knowledge Check */
+.knowledge-check {
+  margin-top: calc(var(--space) * 3);
+  border-top: 1px solid var(--border);
+  padding-top: var(--space);
+}
+.kc-questions,
+.lesson-list {
+  padding-left: 1.4rem;
+}
+.kc-question {
+  border: 1px solid var(--border);
+  padding: var(--space);
+  margin: var(--space) 0;
+}
+.kc-question legend {
+  font-weight: 600;
+  padding: 0 0.4rem;
+}
+.kc-option {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  padding: 0.35rem 0;
+}
+.kc-feedback {
+  margin: 0.6rem 0 0;
+  min-height: 1.6em;
+}
+.kc-feedback.is-correct {
+  border-left: 4px solid var(--accent);
+  padding-left: 0.6rem;
+}
+.kc-feedback.is-incorrect {
+  border-left: 4px solid var(--text-muted);
+  padding-left: 0.6rem;
+}
