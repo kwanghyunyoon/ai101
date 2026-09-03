@@ -93,8 +93,8 @@ an email, explaining a recipe — is this same act of continuing text.
 ## The patterns come from a lot of human writing
 
 The model learned to predict text by reading an enormous amount of it: books,
-articles, websites, conversations. Over and over it tried to guess the next
-chunk, checked itself against the real text, and adjusted.
+articles, websites, conversations. Over and over it guessed the next chunk. Then
+it checked itself against the real text and adjusted.
 
 What it kept from all that reading is **patterns** — a sense of which words and
 ideas tend to follow which. It did not keep the text itself. When people say
@@ -116,13 +116,13 @@ Keep this in mind and the mistakes stop being surprising.
 ## Why it can still say something new
 
 If it only keeps patterns, how does it write a sentence no one has written
-before? Because patterns combine. The model can take the shape of a cover letter,
-the topic of your hobby, and the tone you asked for, and predict a chunk-by-chunk
-path through all three at once. The result is new text, built from old patterns.
+before? Because patterns combine. It can borrow the shape of a cover letter, the
+topic of your hobby, and the tone you asked for. Then it predicts a path through
+all three at once. The result is new text, built from old patterns.
 
 <TryIt
   prompt="In two sentences, explain what a large language model is doing when it answers a question. Write it for someone who has never used one."
-  look="A plain answer about predicting or continuing text — not a claim that it 'searches' or 'knows' facts. If the answer talks about a database, ask it to try again."
+  lookFor="A plain answer about predicting or continuing text — not a claim that it 'searches' or 'knows' facts. If the answer talks about a database, ask it to try again."
 />
 
 You now have the core idea: an LLM continues text using patterns it learned from

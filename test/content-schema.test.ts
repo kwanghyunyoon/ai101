@@ -66,6 +66,11 @@ describe("lessonFrontmatterSchema", () => {
     expect(lessonFrontmatterSchema.safeParse(broken).success).toBe(false);
   });
 
+  it("rejects a typo'd / unknown frontmatter key", () => {
+    const broken = { ...structuredClone(validFrontmatter), estimatedMinutes: 6 };
+    expect(lessonFrontmatterSchema.safeParse(broken).success).toBe(false);
+  });
+
   it("rejects unparseable frontmatter YAML", () => {
     expect(() => parseLessonFrontmatter("title: : :\n  - broken")).toThrow();
   });

@@ -11,19 +11,22 @@ import { parse as parseYaml } from "yaml";
 import { z } from "zod";
 
 /** One answer a Learner can pick, with the explanation shown after they pick it. */
-export const knowledgeCheckOptionSchema = z.object({
-  id: z.string().min(1),
-  text: z.string().min(1),
-  explanation: z.string().min(1, "every option needs its own explanation"),
-});
+const knowledgeCheckOptionSchema = z
+  .object({
+    id: z.string().min(1),
+    text: z.string().min(1),
+    explanation: z.string().min(1, "every option needs its own explanation"),
+  })
+  .strict();
 
 /** One Knowledge Check question: a prompt, its options, and which option is right. */
-export const knowledgeCheckQuestionSchema = z
+const knowledgeCheckQuestionSchema = z
   .object({
     prompt: z.string().min(1),
     options: z.array(knowledgeCheckOptionSchema).min(2),
     correctOptionId: z.string().min(1),
   })
+  .strict()
   .refine((q) => q.options.some((o) => o.id === q.correctOptionId), {
     message: "correctOptionId must name one of this question's options",
     path: ["correctOptionId"],
@@ -40,7 +43,7 @@ export const lessonFrontmatterSchema = z.object({
   minutes: z.number().int().positive(),
   title: z.string().min(1),
   knowledgeCheck: z.array(knowledgeCheckQuestionSchema).min(3).max(4),
-});
+}).strict();
 
 export type LessonFrontmatter = z.infer<typeof lessonFrontmatterSchema>;
 

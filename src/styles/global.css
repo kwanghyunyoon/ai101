@@ -166,7 +166,9 @@ a {
   border-top: 1px solid var(--border);
   padding-top: var(--space);
 }
-.kc-questions,
+.kc-questions {
+  padding-left: 1.4rem;
+}
 .lesson-list {
   padding-left: 1.4rem;
 }

@@ -53,26 +53,27 @@ describe("KnowledgeCheck", () => {
   });
 
   it("does not touch storage", () => {
-    const used: string[] = [];
-    const spy = (key: string) => used.push(key);
-    const realGet = Storage.prototype.getItem;
-    const realSet = Storage.prototype.setItem;
-    Storage.prototype.getItem = function (k: string) {
-      spy(k);
-      return realGet.call(this, k);
-    };
-    Storage.prototype.setItem = function (k: string, v: string) {
-      spy(k);
-      return realSet.call(this, k, v);
-    };
+    const calls: string[] = [];
+    // localStorage and sessionStorage share this prototype.
+    const proto = Storage.prototype as unknown as Record<string, unknown>;
+    const methods = ["getItem", "setItem", "removeItem", "clear"] as const;
+    const original = Object.fromEntries(methods.map((m) => [m, proto[m]]));
+    for (const method of methods) {
+      proto[method] = (...args: unknown[]) => {
+        calls.push(method);
+        return (original[method] as (...a: unknown[]) => unknown).apply(
+          window.localStorage,
+          args,
+        );
+      };
+    }
     try {
       render(<KnowledgeCheck questions={questions} />);
       fireEvent.click(screen.getByLabelText("Looking it up in a database"));
       fireEvent.click(screen.getByLabelText("Predicting the next chunk of text"));
-      expect(used).toEqual([]);
+      expect(calls).toEqual([]);
     } finally {
-      Storage.prototype.getItem = realGet;
-      Storage.prototype.setItem = realSet;
+      Object.assign(proto, original);
     }
   });
 });

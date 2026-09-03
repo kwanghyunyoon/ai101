@@ -3,6 +3,7 @@ import { render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import KnowledgeCheck from "../../components/KnowledgeCheck.tsx";
 import { getLessons } from "../../lib/lessons";
+import { SITE_TITLE } from "../../consts";
 
 export async function getStaticPaths() {
   const lessons = await getLessons();
@@ -16,7 +17,7 @@ const { lesson } = Astro.props;
 const { Content } = await render(lesson);
 ---
 
-<BaseLayout title={`${lesson.data.title} — AI 101`}>
+<BaseLayout title={`${lesson.data.title} — ${SITE_TITLE}`}>
   <article class="lesson">
     <p class="lesson-meta">
       Lesson {lesson.data.order} · about {lesson.data.minutes} min

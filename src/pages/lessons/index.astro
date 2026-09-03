@@ -1,13 +1,14 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getLessons } from "../../lib/lessons";
+import { SITE_TITLE } from "../../consts";
 
 // A bare Lesson index for navigation during the build-out. The real home
 // screen (table of contents + progress + resume) is a later ticket.
 const lessons = await getLessons();
 ---
 
-<BaseLayout title="Lessons — AI 101">
+<BaseLayout title={`Lessons — ${SITE_TITLE}`}>
   <h1>Lessons</h1>
   <ol class="lesson-list">
     {
