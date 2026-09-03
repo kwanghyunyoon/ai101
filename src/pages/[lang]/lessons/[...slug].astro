@@ -1,0 +1,41 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import KnowledgeCheck from "../../../components/KnowledgeCheck.tsx";
+import { getLessons } from "../../../lib/lessons";
+import { SITE_TITLE } from "../../../consts";
+import { liveLanguages } from "../../../i18n/config";
+
+// Every live language × every Lesson. Lesson content is English-only for now
+// (translations are later tickets); a live language with no translated MDX just
+// renders the English source under its prefix rather than 404ing.
+export async function getStaticPaths() {
+  const lessons = await getLessons();
+  return liveLanguages().flatMap((lang) =>
+    lessons.map((lesson) => ({
+      params: { lang: lang.code, slug: lesson.id },
+      props: { lesson },
+    })),
+  );
+}
+
+const { lang } = Astro.params;
+const { lesson } = Astro.props;
+const { Content } = await render(lesson);
+---
+
+<BaseLayout
+  lang={lang}
+  path={`/lessons/${lesson.id}/`}
+  title={`${lesson.data.title} — ${SITE_TITLE}`}
+>
+  <article class="lesson">
+    <p class="lesson-meta">
+      Lesson {lesson.data.order} · about {lesson.data.minutes} min
+    </p>
+    <h1>{lesson.data.title}</h1>
+    <Content />
+  </article>
+
+  <KnowledgeCheck questions={lesson.data.knowledgeCheck} client:visible />
+</BaseLayout>

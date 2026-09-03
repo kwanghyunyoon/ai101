@@ -1,4 +1,3 @@
-import { execSync } from "node:child_process";
 import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, it, expect, beforeAll } from "vitest";
@@ -6,11 +5,8 @@ import { describe, it, expect, beforeAll } from "vitest";
 const root = fileURLToPath(new URL("..", import.meta.url));
 const read = (p: string) => readFileSync(root + p, "utf8");
 
-// Build once, then assert on the rendered output a Learner / maintainer sees —
-// not on component source. (The four spec seams get their own tests later.)
-beforeAll(() => {
-  execSync("npm run build", { cwd: root, stdio: "ignore" });
-}, 120_000);
+// The production build runs once in test/global-build.ts. These assert on the
+// rendered output a Learner / maintainer sees — not on component source.
 
 describe("theme tokens (acceptance: no theme-only colour definitions)", () => {
   const css = read("src/styles/global.css");
@@ -56,7 +52,8 @@ describe("PWA manifest", () => {
 describe("rendered app shell", () => {
   let html: string;
   beforeAll(() => {
-    html = read("dist/index.html");
+    // `/` is now a language-routing shell; the app chrome lives under a prefix.
+    html = read("dist/en/index.html");
   });
 
   it("renders header / main / footer landmarks with a skip link", () => {
