@@ -253,6 +253,46 @@ a {
 .lesson-complete {
   margin-top: calc(var(--space) * 2);
 }
+
+/* Install prompt (shown only when the browser offers installation) */
+.install-prompt {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: var(--space);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+}
+.install-prompt-text {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.install-prompt-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.install-prompt-go,
+.install-prompt-dismiss {
+  padding: 0.4rem 0.9rem;
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid var(--border);
+}
+.install-prompt-go {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border-color: var(--accent);
+  font-weight: 700;
+}
+.install-prompt-dismiss {
+  background: var(--bg);
+  color: var(--text);
+}
 .kc-question {
   border: 1px solid var(--border);
   padding: var(--space);

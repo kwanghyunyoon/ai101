@@ -76,3 +76,24 @@ describe("rendered app shell", () => {
     expect(existsSync(root + "dist/sw.js")).toBe(true);
   });
 });
+
+describe("offline precache service worker (built)", () => {
+  const sw = read("dist/sw.js");
+
+  it("precaches the app shell, every Lesson, and the quiz-bearing HTML", () => {
+    expect(sw).toContain('"/en/"');
+    expect(sw).toContain('"/en/privacy/"');
+    expect(sw).toContain('"/en/done/"');
+    expect(sw).toContain('"/en/lessons/what-an-llm-actually-is/"');
+    expect(sw).toContain('"/manifest.webmanifest"');
+  });
+
+  it("carries a version and drops stale caches on a new deploy", () => {
+    expect(sw).toMatch(/const VERSION = "[0-9a-f]{8}"/);
+    expect(sw).toContain("caches.delete");
+  });
+
+  it("does not try to precache itself", () => {
+    expect(sw).not.toContain('"/sw.js"');
+  });
+});

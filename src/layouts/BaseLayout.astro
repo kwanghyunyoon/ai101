@@ -5,6 +5,7 @@ import { DEFAULT_LANGUAGE, getLanguage, liveLanguages } from "../i18n/config";
 import { localizePath } from "../i18n/routing";
 import HreflangAlternates from "../components/HreflangAlternates.astro";
 import LanguageSwitcher from "../components/LanguageSwitcher.tsx";
+import InstallPrompt from "../components/InstallPrompt.tsx";
 
 interface Props {
   /** The page's language code (`en` / `ko` / `es`). */
@@ -57,6 +58,7 @@ const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     <main id="main" class="app-main">
       <slot />
     </main>
+    <InstallPrompt client:idle />
     <footer class="app-footer">
       <p>
         Free and open. Content licensed CC BY-SA 4.0, code licensed MIT.
@@ -66,7 +68,8 @@ const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     </footer>
 
     <script>
-      // Register the pass-through service worker (offline precache lands later).
+      // Register the service worker. In the build it precaches the whole Course
+      // for offline use (src/lib/precache-integration.ts); in dev it is a no-op.
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker.register("/sw.js").catch(() => {
