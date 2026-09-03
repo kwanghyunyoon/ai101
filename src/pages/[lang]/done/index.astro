@@ -1,53 +1,54 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CompletionGuard from "../../../components/CompletionGuard.tsx";
 import { SITE_TITLE } from "../../../consts";
 import { getLessons } from "../../../lib/lessons";
 import { liveLanguages } from "../../../i18n/config";
-import { localizePath } from "../../../i18n/routing";
+import { lessonPath, localizePath } from "../../../i18n/routing";
 
 // The completion screen. Reached from the home button and the end-of-Lesson
 // action once every Lesson is complete (the resume point becomes this page).
+// CompletionGuard sends an unfinished Learner back to their resume point.
 export function getStaticPaths() {
   return liveLanguages().map((lang) => ({ params: { lang: lang.code } }));
 }
 
 const { lang } = Astro.params;
 const lessons = await getLessons();
+const lessonIds = lessons.map((l) => l.id);
+const hrefs = Object.fromEntries(lessons.map((l) => [l.id, lessonPath(l.id, lang)]));
+const homeHref = localizePath("/", lang);
 
 // "Revisit the mental-model lesson" points at Lesson 3 when it exists, and
-// otherwise at the closest earlier Lesson, so this page works while the Course
-// is still being built out.
-const revisit =
-  lessons.find((l) => l.data.order === 3) ?? lessons[lessons.length - 1];
-const revisitHref = revisit
-  ? localizePath(`/lessons/${revisit.id}/`, lang)
-  : localizePath("/lessons/", lang);
-const homeHref = localizePath("/", lang);
+// otherwise the last Lesson, so this page works while the Course is built out.
+const revisit = lessons.find((l) => l.data.order === 3) ?? lessons.at(-1)!;
 ---
 
-<BaseLayout
-  lang={lang}
-  path="/done/"
-  title={`You finished — ${SITE_TITLE}`}
->
+<BaseLayout lang={lang} path="/done/" title={`You finished — ${SITE_TITLE}`}>
+  <CompletionGuard
+    lessonIds={lessonIds}
+    hrefs={hrefs}
+    homeHref={homeHref}
+    client:load
+  />
+
   <h1>You finished AI 101</h1>
   <p>
     You worked through every lesson. You now have a working picture of what a
-    large language model is doing, where it fails, and how to get better answers
-    out of it. That is the whole goal.
+    large language model does and where it fails. You can also get better answers
+    out of one. That was the goal.
   </p>
 
   <h2>Where to go next</h2>
   <ul>
     <li>
-      <a href={revisitHref}>Revisit {revisit ? revisit.data.title : "the lessons"}</a>
-      {" "}— the mental-model lesson is the one worth a second read.
+      <a href={lessonPath(revisit.id, lang)}>Revisit {revisit.data.title}</a>.
+      The mental-model lesson rewards a second read.
     </li>
     <li>
-      Go practice in a tool you picked: ChatGPT, Gemini, Claude, or Grok for
-      everyday help, Perplexity when you need sources. Bring a real task — an
-      email, a plan, a decision — and try the before/after prompt approach from
-      the lessons.
+      Go practice in a tool you picked. Use ChatGPT, Gemini, Claude, or Grok for
+      everyday help. Use Perplexity when you need sources. Bring a real task and
+      try the before/after prompt from the lessons.
     </li>
   </ul>
 

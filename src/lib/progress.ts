@@ -114,6 +114,12 @@ export class Progress {
     return this.load().has(lessonId);
   }
 
+  /** The completed Lesson ids, in teaching order. */
+  completedLessonIds(): string[] {
+    const done = this.load();
+    return this.lessonIds.filter((id) => done.has(id));
+  }
+
   completedCount(): number {
     return this.load().size;
   }

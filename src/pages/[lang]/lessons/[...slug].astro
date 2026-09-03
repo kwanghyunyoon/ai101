@@ -6,7 +6,7 @@ import LessonComplete from "../../../components/LessonComplete.tsx";
 import { getLessons } from "../../../lib/lessons";
 import { SITE_TITLE } from "../../../consts";
 import { liveLanguages } from "../../../i18n/config";
-import { localizePath } from "../../../i18n/routing";
+import { lessonPath, localizePath } from "../../../i18n/routing";
 
 // Every live language × every Lesson. Lesson content is English-only for now
 // (translations are later tickets); a live language with no translated MDX just
@@ -28,7 +28,7 @@ const { Content } = await render(lesson);
 const allLessons = await getLessons();
 const lessonIds = allLessons.map((l) => l.id);
 const hrefs = Object.fromEntries(
-  allLessons.map((l) => [l.id, localizePath(`/lessons/${l.id}/`, lang)]),
+  allLessons.map((l) => [l.id, lessonPath(l.id, lang)]),
 );
 const doneHref = localizePath("/done/", lang);
 ---

@@ -35,6 +35,11 @@ export function localizePath(logicalPath: string, lang: string): string {
   return rest === "/" ? `/${lang}/` : `/${lang}${rest}`;
 }
 
+/** A Lesson's localized route from its entry id: `("what-…", "en")` → `/en/lessons/what-…/`. */
+export function lessonPath(lessonId: string, lang: string): string {
+  return localizePath(`/lessons/${lessonId}/`, lang);
+}
+
 function normalizeLogicalPath(path: string): string {
   let p = path || "/";
   if (!p.startsWith("/")) p = `/${p}`;

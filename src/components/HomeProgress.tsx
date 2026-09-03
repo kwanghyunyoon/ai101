@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "preact/hooks";
-import { Progress, localStoragePort, type ResumePoint } from "../lib/progress";
+import { Progress, localStoragePort } from "../lib/progress";
 
 /** One row of the table of contents, resolved to its localized route. */
 export interface LessonLink {
@@ -13,8 +13,8 @@ export interface LessonLink {
  * The home screen's table of contents, with the Learner's Progress layered on:
  * a completion mark per Lesson, an "N of 6 done" summary, and a primary
  * Start / Resume button. An island (ADR 0003) because the completion state is
- * read from `localStorage` on the client; the astro page ships a plain
- * `<noscript>` list so the Course is still navigable with no JavaScript.
+ * read from `localStorage` on the client; it renders the full list on the
+ * server too, so the Course is navigable before (and without) hydration.
  */
 export default function HomeProgress({
   lessons,
@@ -24,34 +24,27 @@ export default function HomeProgress({
   doneHref: string;
 }) {
   const ids = useMemo(() => lessons.map((l) => l.id), [lessons]);
-  const progress = useMemo(
-    () => new Progress(localStoragePort(), ids),
-    [ids],
-  );
+  const progress = useMemo(() => new Progress(localStoragePort(), ids), [ids]);
 
+  // Empty until the effect reads storage — the server render and first paint
+  // show every Lesson as not-yet-done, which is the correct default.
   const [completed, setCompleted] = useState<Set<string>>(new Set());
-  const [resume, setResume] = useState<ResumePoint>({
-    kind: "lesson",
-    lessonId: ids[0],
-    index: 0,
-  });
 
   useEffect(() => {
-    setCompleted(new Set(ids.filter((id) => progress.isComplete(id))));
-    setResume(progress.resumePoint());
-  }, [ids, progress]);
+    setCompleted(new Set(progress.completedLessonIds()));
+  }, [progress]);
 
   const done = completed.size;
   const total = lessons.length;
+  const resumeIndex = lessons.findIndex((l) => !completed.has(l.id));
+  const allDone = resumeIndex === -1;
 
-  const primaryHref =
-    resume.kind === "complete" ? doneHref : lessons[resume.index].href;
-  const primaryLabel =
-    done === 0
+  const primaryHref = allDone ? doneHref : lessons[resumeIndex].href;
+  const primaryLabel = allDone
+    ? "See your completion"
+    : done === 0
       ? "Start Lesson 1"
-      : resume.kind === "complete"
-        ? "See your completion"
-        : `Resume Lesson ${resume.index + 1}`;
+      : `Resume Lesson ${resumeIndex + 1}`;
 
   return (
     <div class="home-toc">

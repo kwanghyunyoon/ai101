@@ -4,7 +4,7 @@ import HomeProgress from "../../components/HomeProgress.tsx";
 import { SITE_TITLE, SITE_TAGLINE } from "../../consts";
 import { getLessons } from "../../lib/lessons";
 import { liveLanguages } from "../../i18n/config";
-import { localizePath } from "../../i18n/routing";
+import { lessonPath, localizePath } from "../../i18n/routing";
 
 // One home per live language. A configured-but-not-live language (ko, es) is
 // simply absent from this list, so no route is generated and the build passes.
@@ -20,7 +20,7 @@ const links = lessons.map((lesson) => ({
   id: lesson.id,
   title: lesson.data.title,
   minutes: lesson.data.minutes,
-  href: localizePath(`/lessons/${lesson.id}/`, lang),
+  href: lessonPath(lesson.id, lang),
 }));
 ---
 
@@ -32,18 +32,5 @@ const links = lessons.map((lesson) => ({
     progress stays in this browser — start anywhere, come back anytime.
   </p>
 
-  <HomeProgress lessons={links} doneHref={doneHref} client:only="preact" />
-
-  <noscript>
-    <ol class="lesson-list">
-      {
-        links.map((lesson) => (
-          <li>
-            <a href={lesson.href}>{lesson.title}</a>
-            <span class="lesson-meta"> · about {lesson.minutes} min</span>
-          </li>
-        ))
-      }
-    </ol>
-  </noscript>
+  <HomeProgress lessons={links} doneHref={doneHref} client:load />
 </BaseLayout>
