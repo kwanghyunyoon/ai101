@@ -1,3 +1,4 @@
+import type { Language } from "../i18n/config";
 import { localizePath } from "../i18n/routing";
 import { writeStoredLanguage } from "../i18n/preference";
 
@@ -9,28 +10,30 @@ import { writeStoredLanguage } from "../i18n/preference";
  * persistence runs — the markup is server-rendered.
  */
 export default function LanguageSwitcher({
-  currentLang,
+  lang,
   logicalPath,
   languages,
 }: {
-  currentLang: string;
+  lang: string;
   logicalPath: string;
-  languages: { code: string; label: string }[];
+  languages: Language[];
 }) {
   return (
     <nav class="lang-switcher" aria-label="Language">
       <ul>
-        {languages.map((lang) => {
-          const isCurrent = lang.code === currentLang;
+        {languages.map((language) => {
+          const isCurrent = language.code === lang;
           return (
-            <li key={lang.code}>
+            <li key={language.code}>
               <a
-                href={localizePath(logicalPath, lang.code)}
-                hrefLang={lang.code}
+                href={localizePath(logicalPath, language.code)}
+                hrefLang={language.htmlLang}
                 aria-current={isCurrent ? "true" : undefined}
-                onClick={() => writeStoredLanguage(lang.code)}
+                onClick={() =>
+                  isCurrent || writeStoredLanguage(language.code)
+                }
               >
-                {lang.label}
+                {language.label}
               </a>
             </li>
           );

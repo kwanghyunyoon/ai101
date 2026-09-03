@@ -1,0 +1,22 @@
+---
+/*
+ * The `<link rel="alternate" hreflang>` set for one logical path — one entry per
+ * live language plus `x-default`. Used in `<head>` by BaseLayout (every prefixed
+ * page) and by the `/` language router, which has no BaseLayout.
+ */
+import { SITE_ORIGIN } from "../consts";
+import { alternateLinks } from "../i18n/routing";
+
+interface Props {
+  /** Path without the language prefix, e.g. `/lessons/what-an-llm-actually-is/`. */
+  path: string;
+}
+
+const alternates = alternateLinks(Astro.props.path, SITE_ORIGIN);
+---
+
+{
+  alternates.map((alt) => (
+    <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+  ))
+}

@@ -28,7 +28,7 @@ describe("prefix resolution", () => {
 
 describe("a configured-but-not-live language", () => {
   it("has no routes and did not break the build", () => {
-    // The build in beforeAll succeeded; ko/es are configured but not live.
+    // The shared build succeeded; ko/es are configured but not live.
     expect(existsSync(root + "dist/ko")).toBe(false);
     expect(existsSync(root + "dist/es")).toBe(false);
   });

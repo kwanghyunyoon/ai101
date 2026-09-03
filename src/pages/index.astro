@@ -1,14 +1,14 @@
 ---
 import { SITE_TITLE } from "../consts";
 import { DEFAULT_LANGUAGE, liveLanguages } from "../i18n/config";
-import { alternateLinks, localizePath } from "../i18n/routing";
+import { localizePath } from "../i18n/routing";
+import HreflangAlternates from "../components/HreflangAlternates.astro";
 
 // `/` holds no content — it routes the visitor to a language. There is no
 // server (ADR 0001), so detection runs in the browser: a stored preference,
 // else `Accept-Language` via `navigator.languages`, else the default. The
 // <noscript> path and crawlers get the default language.
 const fallback = localizePath("/", DEFAULT_LANGUAGE);
-const alternates = alternateLinks("/", Astro.site ?? "https://ai101.pages.dev");
 const langs = liveLanguages()
   .map((l) => l.label)
   .join(" · ");
@@ -21,11 +21,7 @@ const langs = liveLanguages()
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{SITE_TITLE}</title>
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-    {
-      alternates.map((alt) => (
-        <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
-      ))
-    }
+    <HreflangAlternates path="/" />
     <noscript>
       <meta http-equiv="refresh" content={`0; url=${fallback}`} />
     </noscript>

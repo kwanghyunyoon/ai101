@@ -2,7 +2,8 @@
 import "../styles/global.css";
 import { SITE_TITLE, SITE_TAGLINE } from "../consts";
 import { DEFAULT_LANGUAGE, getLanguage, liveLanguages } from "../i18n/config";
-import { alternateLinks, localizePath } from "../i18n/routing";
+import { localizePath } from "../i18n/routing";
+import HreflangAlternates from "../components/HreflangAlternates.astro";
 import LanguageSwitcher from "../components/LanguageSwitcher.tsx";
 
 interface Props {
@@ -22,11 +23,7 @@ const {
 } = Astro.props;
 
 const language = getLanguage(lang) ?? getLanguage(DEFAULT_LANGUAGE)!;
-const alternates = alternateLinks(path, Astro.site ?? "https://ai101.pages.dev");
-const switcherLanguages = liveLanguages().map((l) => ({
-  code: l.code,
-  label: l.label,
-}));
+const switcherLanguages = liveLanguages();
 
 // Set PUBLIC_CF_BEACON_TOKEN (build env / Cloudflare Pages) to enable the
 // cookieless Web Analytics beacon. Absent in local dev; that is fine.
@@ -44,18 +41,14 @@ const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/icon.svg" />
-    {
-      alternates.map((alt) => (
-        <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
-      ))
-    }
+    <HreflangAlternates path={path} />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="app-header">
       <a class="wordmark" href={localizePath("/", lang)}>AI 101</a>
       <LanguageSwitcher
-        currentLang={lang}
+        lang={lang}
         logicalPath={path}
         languages={switcherLanguages}
         client:idle

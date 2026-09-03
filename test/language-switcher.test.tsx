@@ -3,21 +3,18 @@ import { describe, it, expect, afterEach, beforeEach } from "vitest";
 import { render, cleanup, screen } from "@testing-library/preact";
 import LanguageSwitcher from "../src/components/LanguageSwitcher";
 import { STORED_LANGUAGE_KEY } from "../src/i18n/preference";
+import { LANGUAGES } from "../src/i18n/config";
 
 afterEach(cleanup);
 beforeEach(() => window.localStorage.clear());
 
-const languages = [
-  { code: "en", label: "English" },
-  { code: "ko", label: "한국어" },
-  { code: "es", label: "Español" },
-];
+const languages = LANGUAGES.map((l) => ({ ...l }));
 
 describe("LanguageSwitcher", () => {
   it("links each language to the same Lesson under its prefix", () => {
     render(
       <LanguageSwitcher
-        currentLang="en"
+        lang="en"
         logicalPath="/lessons/what-an-llm-actually-is/"
         languages={languages}
       />,
@@ -34,7 +31,7 @@ describe("LanguageSwitcher", () => {
   it("marks the current language and does not link away from it needlessly", () => {
     render(
       <LanguageSwitcher
-        currentLang="en"
+        lang="en"
         logicalPath="/"
         languages={languages}
       />,
@@ -46,7 +43,7 @@ describe("LanguageSwitcher", () => {
   it("stores the chosen language when a switcher link is clicked", () => {
     render(
       <LanguageSwitcher
-        currentLang="en"
+        lang="en"
         logicalPath="/lessons/x/"
         languages={languages}
       />,
