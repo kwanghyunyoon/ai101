@@ -31,7 +31,14 @@ export const LANGUAGES: readonly Language[] = [
 /** The language `/` falls back to when nothing else matches. Always live. */
 export const DEFAULT_LANGUAGE = "en";
 
-/** The languages that actually route. Only English until KO/ES are translated. */
+/*
+ * The languages that actually route.
+ *
+ * `ko` has a full AI-drafted translation (all six Lessons + every UI string) but
+ * stays out of this list until a named native Korean reviewer has corrected it
+ * (issue #13). Flipping it to `["en", "ko"]` is the only change needed to make
+ * `/ko/` routable, add its `hreflang`, and show it in the switcher.
+ */
 export const LIVE_LANGUAGE_CODES: readonly string[] = ["en"];
 
 export function getLanguage(code: string): Language | undefined {

@@ -1,5 +1,6 @@
 import { useId, useState } from "preact/hooks";
 import type { LessonFrontmatter } from "../content/schema";
+import { ui } from "../i18n/ui";
 
 type Question = LessonFrontmatter["knowledgeCheck"][number];
 
@@ -12,16 +13,19 @@ type Question = LessonFrontmatter["knowledgeCheck"][number];
  */
 export default function KnowledgeCheck({
   questions,
+  lang,
 }: {
   questions: Question[];
+  lang?: string;
 }) {
+  const t = ui(lang).knowledgeCheck;
   return (
     <section class="knowledge-check" aria-labelledby="knowledge-check-heading">
-      <h2 id="knowledge-check-heading">Knowledge check</h2>
+      <h2 id="knowledge-check-heading">{t.heading}</h2>
       <ol class="kc-questions">
         {questions.map((question, i) => (
           <li key={i}>
-            <QuestionBlock question={question} />
+            <QuestionBlock question={question} t={t} />
           </li>
         ))}
       </ol>
@@ -29,7 +33,13 @@ export default function KnowledgeCheck({
   );
 }
 
-function QuestionBlock({ question }: { question: Question }) {
+function QuestionBlock({
+  question,
+  t,
+}: {
+  question: Question;
+  t: { correct: string; notQuite: string };
+}) {
   const groupName = useId();
   const feedbackId = `${groupName}-feedback`;
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -65,7 +75,7 @@ function QuestionBlock({ question }: { question: Question }) {
       >
         {picked && (
           <>
-            <strong>{isCorrect ? "Correct." : "Not quite."}</strong>{" "}
+            <strong>{isCorrect ? t.correct : t.notQuite}</strong>{" "}
             {picked.explanation}
           </>
         )}

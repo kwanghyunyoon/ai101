@@ -8,6 +8,8 @@
  *          lookFor="A plain answer with a concrete example, not a wall of jargon." />
  */
 import CopyButton from "./CopyButton.tsx";
+import { splitLangFromPath } from "../i18n/routing";
+import { ui } from "../i18n/ui";
 
 interface Props {
   /** The exact text the Learner should paste into a tool. */
@@ -17,11 +19,15 @@ interface Props {
 }
 
 const { prompt, lookFor } = Astro.props;
+// The MDX that renders this has no language prop of its own, so read it off the
+// page's own URL: `/ko/lessons/…` → `ko`.
+const { lang } = splitLangFromPath(Astro.url.pathname);
+const t = ui(lang ?? undefined);
 ---
 
-<aside class="try-it" aria-label="Try it">
-  <p class="try-it-label">Try it</p>
+<aside class="try-it" aria-label={t.tryIt.label}>
+  <p class="try-it-label">{t.tryIt.label}</p>
   <pre class="try-it-prompt">{prompt}</pre>
-  <CopyButton text={prompt} client:visible />
-  <p class="try-it-look"><strong>What to look for:</strong> {lookFor}</p>
+  <CopyButton text={prompt} label={t.copy.idle} doneLabel={t.copy.done} client:visible />
+  <p class="try-it-look"><strong>{t.tryIt.lookFor}</strong> {lookFor}</p>
 </aside>

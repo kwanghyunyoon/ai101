@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "preact/hooks";
 import { localStoragePort } from "../lib/progress";
+import { ui } from "../i18n/ui";
 
 /**
  * A dismissable "Install AI 101" banner, shown only when the browser actually
@@ -19,7 +20,8 @@ interface InstallEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
-export default function InstallPrompt() {
+export default function InstallPrompt({ lang }: { lang?: string }) {
+  const t = ui(lang).install;
   const storage = useMemo(() => localStoragePort(), []);
   const [deferred, setDeferred] = useState<InstallEvent | null>(null);
   const [dismissed, setDismissed] = useState(true);
@@ -60,20 +62,18 @@ export default function InstallPrompt() {
   };
 
   return (
-    <div class="install-prompt" role="region" aria-label="Install AI 101">
-      <p class="install-prompt-text">
-        Install AI 101 to your device — it works fully offline.
-      </p>
+    <div class="install-prompt" role="region" aria-label={t.region}>
+      <p class="install-prompt-text">{t.text}</p>
       <div class="install-prompt-actions">
         <button type="button" class="install-prompt-go" onClick={install}>
-          Install
+          {t.go}
         </button>
         <button
           type="button"
           class="install-prompt-dismiss"
           onClick={dismiss}
         >
-          Not now
+          {t.dismiss}
         </button>
       </div>
     </div>

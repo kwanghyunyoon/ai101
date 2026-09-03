@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { SITE_TITLE, SITE_TAGLINE } from "../consts";
 import { DEFAULT_LANGUAGE, getLanguage, liveLanguages } from "../i18n/config";
 import { localizePath } from "../i18n/routing";
+import { ui } from "../i18n/ui";
 import HreflangAlternates from "../components/HreflangAlternates.astro";
 import LanguageSwitcher from "../components/LanguageSwitcher.tsx";
 import InstallPrompt from "../components/InstallPrompt.tsx";
@@ -25,6 +26,7 @@ const {
 
 const language = getLanguage(lang) ?? getLanguage(DEFAULT_LANGUAGE)!;
 const switcherLanguages = liveLanguages();
+const t = ui(lang);
 
 // Set PUBLIC_CF_BEACON_TOKEN (build env / Cloudflare Pages) to enable the
 // cookieless Web Analytics beacon. Absent in local dev; that is fine.
@@ -45,25 +47,25 @@ const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     <HreflangAlternates path={path} />
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">{t.skipLink}</a>
     <header class="app-header">
       <a class="wordmark" href={localizePath("/", lang)}>AI 101</a>
       <LanguageSwitcher
         lang={lang}
         logicalPath={path}
         languages={switcherLanguages}
+        label={t.languageLabel}
         client:idle
       />
     </header>
     <main id="main" class="app-main">
       <slot />
     </main>
-    <InstallPrompt client:idle />
+    <InstallPrompt lang={lang} client:idle />
     <footer class="app-footer">
       <p>
-        Free and open. Content licensed CC BY-SA 4.0, code licensed MIT.
-        Your progress stays in your browser — no account, no cookies.{" "}
-        <a href={localizePath("/privacy/", lang)}>What we store</a>.
+        {t.footer.license}{" "}
+        <a href={localizePath("/privacy/", lang)}>{t.footer.privacyLink}</a>.
       </p>
     </footer>
 

@@ -57,6 +57,19 @@
   box-sizing: border-box;
 }
 
+/*
+ * Korean renders in a proper CJK typeface. We ship no font binary — the stack
+ * prefers Pretendard if the reader has it, then each platform's system Korean
+ * face, then the generic sans-serif. Scoped to `:lang(ko)` so it also covers a
+ * Korean page that falls back to an untranslated English string.
+ */
+:lang(ko) {
+  --font-sans: "Pretendard", "Pretendard Variable", "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
 body {
   margin: 0;
   background: var(--bg);

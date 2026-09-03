@@ -1,4 +1,5 @@
 import { Progress, localStoragePort } from "../lib/progress";
+import { ui } from "../i18n/ui";
 
 /**
  * The end-of-Lesson action. Marks this Lesson complete in the Learner's
@@ -12,17 +13,19 @@ export default function LessonComplete({
   lessonIds,
   hrefs,
   doneHref,
+  lang,
 }: {
   lessonId: string;
   lessonIds: string[];
   hrefs: Record<string, string>;
   doneHref: string;
+  lang?: string;
 }) {
+  const t = ui(lang).lessonComplete;
   const progress = new Progress(localStoragePort(), lessonIds);
   const next = progress.nextAfter(lessonId);
   const nextHref = next.kind === "complete" ? doneHref : hrefs[next.lessonId];
-  const label =
-    next.kind === "complete" ? "Finish the Course" : "Mark complete → next Lesson";
+  const label = next.kind === "complete" ? t.finish : t.next;
 
   function onClick(event: Event) {
     event.preventDefault();
