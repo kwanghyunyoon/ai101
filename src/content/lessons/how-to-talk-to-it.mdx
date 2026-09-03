@@ -38,8 +38,8 @@ knowledgeCheck:
           Reply in the same chat: "Cut this to half the length and make it sound
           more relaxed."
         explanation: >-
-          Right. Treat the first answer as a draft. The model keeps the context
-          and just applies your edit, the way you would brief a person.
+          Right. Treat the first answer as a draft. The model keeps the context,
+          so it just applies your edit.
       - id: restart
         text: >-
           Start a brand-new chat and write the whole prompt again from scratch.
@@ -86,8 +86,8 @@ knowledgeCheck:
           Ask for an outline of the steps first, then work through one step per
           message.
         explanation: >-
-          Right. Breaking a big ask into steps keeps each answer focused and
-          lets you correct course before the model builds on a wrong turn.
+          Right. A smaller ask keeps each answer focused. You also catch a wrong
+          turn before the model builds on it.
       - id: onego
         text: >-
           Ask for the entire plan, fully detailed, in one message.
@@ -104,14 +104,14 @@ knowledgeCheck:
 
 import TryIt from "../../components/TryIt.astro";
 
-The same tool gives a weak answer or a strong one depending on how you ask. This
-Lesson is the part that pays off every time you use it: a few habits that turn a
-vague reply into one you can actually use.
+The same tool gives a weak answer or a strong one, depending on how you ask. This
+Lesson is the part that pays off every time. A few habits turn a vague reply into
+one you can actually use.
 
 ## Give it context
 
-The model cannot see your situation. It only has the words in your prompt. So
-tell it what a person helping you would need to know:
+The model cannot see your situation. It only has your **prompt** — the words you
+type into the box. So tell it what a person helping you would need to know:
 
 - **Who you are:** "I'm a parent," "I run a small bakery," "I'm new to this job."
 - **The purpose:** what the text is for and what you want it to achieve.
@@ -155,9 +155,9 @@ for all of it at once. Ask for an outline first. Then work through one piece per
 message. Small answers are easier to check, and you catch a wrong turn before
 the model builds on it.
 
-## "Act as" and "write for"
+## Point it at a role or a reader
 
-You can point the model at a role or a reader:
+Two short phrases — "act as" and "write for" — set the model's point of view:
 
 - "Act as a careful proofreader and mark what is unclear."
 - "Explain this like you are talking to a 10-year-old."
@@ -173,8 +173,8 @@ The task: email your building manager about a leaking kitchen tap.
 
 > Write an email about my sink.
 
-You get a generic email. It invents details — how long it has leaked, how bad it
-is, a unit number — because you did not give any. You have to rewrite most of it.
+You get a generic email. The model invents details it was never given — how long
+the tap has leaked, how bad it is, a unit number. You have to rewrite most of it.
 
 **Better prompt:**
 
@@ -186,34 +186,31 @@ Now the email has your real details, the right length, a clear ask, and a tone
 you can send as is. Same tool, same task — the difference is entirely in the
 prompt.
 
-<TryIt
-  prompt="Write an email about my sink."
-  lookFor="A vague email with invented details — a made-up unit number, a guess at how long it's been broken. Notice everything the model had to make up because you didn't tell it."
-/>
-
-<TryIt
-  prompt="Write a short, polite email to my building manager. I'm in apartment 4B. The kitchen tap has dripped for three days and it's getting worse. Ask them to send someone this week. Keep it to four sentences."
-  lookFor="A four-sentence email with your details, a clear request, and a tone you could send without editing. Compare it to the vague version above."
-/>
-
 ## Try it: prompt it badly, then improve it twice
 
-Pick a real task — say, a message to cancel a standing appointment.
+Do all three of these in one chat, one message at a time. Watch the answer get
+closer to something you would actually send.
 
-1. **Round one:** paste "Write a message canceling my appointment." See how much
-   it has to guess.
-2. **Round two:** add context and form. Who is it to, how formal, how long, and
-   do you want a new time offered?
-3. **Round three:** reply to its answer with one fix — shorter, warmer, or add a
-   specific reason.
+**Round one — the lazy version:**
 
 <TryIt
   prompt="Write a message canceling my appointment."
-  lookFor="A generic cancellation with placeholders or invented specifics. This is your baseline — the next two rounds should visibly beat it."
+  lookFor="A generic cancellation with placeholders or invented specifics — a made-up date, a guessed reason. This is your baseline."
 />
 
-Each round should get closer to something you would actually send. That gap,
-closing, is prompting.
+**Round two — add context and form:**
+
+<TryIt
+  prompt="Write a short, polite text to my dentist's office to cancel my cleaning this Thursday. Ask for the first open morning slot next week. Two or three sentences, friendly."
+  lookFor="A brief, warm text with your real details, the cancellation, and the request for a new time. Much closer to sendable than round one."
+/>
+
+**Round three — reply to that answer with one fix:**
+
+<TryIt
+  prompt="Make it a little warmer and add that I'm canceling because I'll be traveling for work."
+  lookFor="The same text, adjusted — warmer wording and your reason worked in, without losing the length or the request. That small steering step is most of prompting."
+/>
 
 Next, you will see the traps to watch for — the ways a confident answer can still
 lead you wrong.
