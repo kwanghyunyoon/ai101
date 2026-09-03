@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { SITE_TITLE } from "../../../consts";
+import { getLessons } from "../../../lib/lessons";
+import { liveLanguages } from "../../../i18n/config";
+import { localizePath } from "../../../i18n/routing";
+
+// The completion screen. Reached from the home button and the end-of-Lesson
+// action once every Lesson is complete (the resume point becomes this page).
+export function getStaticPaths() {
+  return liveLanguages().map((lang) => ({ params: { lang: lang.code } }));
+}
+
+const { lang } = Astro.params;
+const lessons = await getLessons();
+
+// "Revisit the mental-model lesson" points at Lesson 3 when it exists, and
+// otherwise at the closest earlier Lesson, so this page works while the Course
+// is still being built out.
+const revisit =
+  lessons.find((l) => l.data.order === 3) ?? lessons[lessons.length - 1];
+const revisitHref = revisit
+  ? localizePath(`/lessons/${revisit.id}/`, lang)
+  : localizePath("/lessons/", lang);
+const homeHref = localizePath("/", lang);
+---
+
+<BaseLayout
+  lang={lang}
+  path="/done/"
+  title={`You finished — ${SITE_TITLE}`}
+>
+  <h1>You finished AI 101</h1>
+  <p>
+    You worked through every lesson. You now have a working picture of what a
+    large language model is doing, where it fails, and how to get better answers
+    out of it. That is the whole goal.
+  </p>
+
+  <h2>Where to go next</h2>
+  <ul>
+    <li>
+      <a href={revisitHref}>Revisit {revisit ? revisit.data.title : "the lessons"}</a>
+      {" "}— the mental-model lesson is the one worth a second read.
+    </li>
+    <li>
+      Go practice in a tool you picked: ChatGPT, Gemini, Claude, or Grok for
+      everyday help, Perplexity when you need sources. Bring a real task — an
+      email, a plan, a decision — and try the before/after prompt approach from
+      the lessons.
+    </li>
+  </ul>
+
+  <p><a href={homeHref}>Back to the lesson list</a></p>
+</BaseLayout>

@@ -2,9 +2,11 @@
 import { render } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import KnowledgeCheck from "../../../components/KnowledgeCheck.tsx";
+import LessonComplete from "../../../components/LessonComplete.tsx";
 import { getLessons } from "../../../lib/lessons";
 import { SITE_TITLE } from "../../../consts";
 import { liveLanguages } from "../../../i18n/config";
+import { localizePath } from "../../../i18n/routing";
 
 // Every live language × every Lesson. Lesson content is English-only for now
 // (translations are later tickets); a live language with no translated MDX just
@@ -22,6 +24,13 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 const { lesson } = Astro.props;
 const { Content } = await render(lesson);
+
+const allLessons = await getLessons();
+const lessonIds = allLessons.map((l) => l.id);
+const hrefs = Object.fromEntries(
+  allLessons.map((l) => [l.id, localizePath(`/lessons/${l.id}/`, lang)]),
+);
+const doneHref = localizePath("/done/", lang);
 ---
 
 <BaseLayout
@@ -38,4 +47,12 @@ const { Content } = await render(lesson);
   </article>
 
   <KnowledgeCheck questions={lesson.data.knowledgeCheck} client:visible />
+
+  <LessonComplete
+    lessonId={lesson.id}
+    lessonIds={lessonIds}
+    hrefs={hrefs}
+    doneHref={doneHref}
+    client:visible
+  />
 </BaseLayout>

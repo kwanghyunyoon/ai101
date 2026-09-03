@@ -1,7 +1,10 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import HomeProgress from "../../components/HomeProgress.tsx";
 import { SITE_TITLE, SITE_TAGLINE } from "../../consts";
+import { getLessons } from "../../lib/lessons";
 import { liveLanguages } from "../../i18n/config";
+import { localizePath } from "../../i18n/routing";
 
 // One home per live language. A configured-but-not-live language (ko, es) is
 // simply absent from this list, so no route is generated and the build passes.
@@ -10,18 +13,37 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
+const lessons = await getLessons();
+const doneHref = localizePath("/done/", lang);
+
+const links = lessons.map((lesson) => ({
+  id: lesson.id,
+  title: lesson.data.title,
+  minutes: lesson.data.minutes,
+  href: localizePath(`/lessons/${lesson.id}/`, lang),
+}));
 ---
 
-<BaseLayout lang={lang} path="/" title={`${SITE_TITLE} — coming soon`}>
+<BaseLayout lang={lang} path="/" title={SITE_TITLE}>
   <h1>{SITE_TITLE}</h1>
   <p>{SITE_TAGLINE}</p>
   <p>
-    A course on how AI and large language models actually work — written for
-    curious adults, finishable in about 40 minutes.
+    {lessons.length} short lessons with a knowledge check after each. Your
+    progress stays in this browser — start anywhere, come back anytime.
   </p>
-  <p>
-    The Course is being built in the open. Six short lessons, a knowledge check
-    after each, and honest guidance on which tools to use. No signup, no cost.
-  </p>
-  <p><strong>Check back soon.</strong></p>
+
+  <HomeProgress lessons={links} doneHref={doneHref} client:only="preact" />
+
+  <noscript>
+    <ol class="lesson-list">
+      {
+        links.map((lesson) => (
+          <li>
+            <a href={lesson.href}>{lesson.title}</a>
+            <span class="lesson-meta"> · about {lesson.minutes} min</span>
+          </li>
+        ))
+      }
+    </ol>
+  </noscript>
 </BaseLayout>
