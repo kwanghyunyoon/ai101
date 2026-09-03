@@ -1,0 +1,27 @@
+---
+/*
+ * A Try-It callout: a labelled block with a copyable prompt and a one-line note
+ * on what to look for in the result. It never calls an API — it points the
+ * Learner at a real tool. Use inside Lesson MDX:
+ *
+ *   <TryIt prompt="Explain compound interest to me like I'm 12."
+ *          lookFor="A plain answer with a concrete example, not a wall of jargon." />
+ */
+import CopyButton from "./CopyButton.tsx";
+
+interface Props {
+  /** The exact text the Learner should paste into a tool. */
+  prompt: string;
+  /** One line on what a good response looks like. */
+  lookFor: string;
+}
+
+const { prompt, lookFor } = Astro.props;
+---
+
+<aside class="try-it" aria-label="Try it">
+  <p class="try-it-label">Try it</p>
+  <pre class="try-it-prompt">{prompt}</pre>
+  <CopyButton text={prompt} client:visible />
+  <p class="try-it-look"><strong>What to look for:</strong> {lookFor}</p>
+</aside>

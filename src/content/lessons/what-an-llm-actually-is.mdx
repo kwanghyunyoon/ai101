@@ -1,0 +1,129 @@
+---
+id: what-an-llm-actually-is
+order: 1
+minutes: 6
+title: What an LLM actually is
+knowledgeCheck:
+  - prompt: >-
+      At its core, what is a large language model doing when it answers you?
+    correctOptionId: predicts
+    options:
+      - id: predicts
+        text: Guessing the next chunk of text, one piece at a time
+        explanation: >-
+          Right. The model was trained to predict what comes next in a stretch of
+          text. Your prompt is the start; the answer is it continuing that text
+          one chunk at a time.
+      - id: lookup
+        text: Looking up the answer in a stored database of facts
+        explanation: >-
+          Not quite. There is no table of facts inside it to look things up in.
+          It only predicts likely text, which is why it can be fluent and wrong
+          at the same time.
+      - id: reasons
+        text: Working through the problem the way a person thinks it through
+        explanation: >-
+          Not quite. It has no thoughts or intentions. It produces text that
+          looks like reasoning because it learned the patterns of how people
+          write when they reason.
+  - prompt: >-
+      Where does a model's ability to write come from?
+    correctOptionId: patterns
+    options:
+      - id: patterns
+        text: Patterns it picked up from a very large amount of human writing
+        explanation: >-
+          Right. During training it read a huge amount of text and adjusted
+          itself until it got good at predicting the next chunk. What it keeps is
+          the patterns, not the text.
+      - id: rules
+        text: Grammar and style rules that people typed in by hand
+        explanation: >-
+          Not quite. Nobody wrote the rules. The model found the patterns on its
+          own by trying to predict text over and over.
+      - id: internet
+        text: A live connection to the internet it searches while answering
+        explanation: >-
+          Not by default. A plain model only uses patterns from its training.
+          Some tools add web search on top, but that is a separate feature.
+  - prompt: >-
+      A friend says: "The model just copies sentences it has already seen."
+      What is the best response?
+    correctOptionId: novel
+    options:
+      - id: novel
+        text: >-
+          It can write text that never existed before, because it works from
+          patterns rather than saved sentences
+        explanation: >-
+          Right. Predicting the next chunk from patterns lets it combine ideas in
+          new ways, so it can answer a question no one has asked in exactly that
+          form.
+      - id: agree
+        text: That is correct — it stores sentences and pastes the closest match
+        explanation: >-
+          Not quite. It keeps patterns, not a library of sentences. That is why
+          two people can get different wordings for the same question.
+      - id: sometimes
+        text: Only when it is connected to the internet
+        explanation: >-
+          Not quite. Producing new wordings comes from how the model works, not
+          from web access.
+---
+
+import TryIt from "../../components/TryIt.astro";
+
+You have heard that you should "use AI." Before you do, it helps to know what the
+thing actually is. Most of the confusion about these tools comes from imagining
+the wrong machine.
+
+## It predicts the next chunk of text
+
+A **large language model** (LLM) is the engine inside tools like ChatGPT. Its one
+job is to predict the next chunk of text.
+
+You give it some words. It asks itself: given this text so far, what chunk most
+likely comes next? It adds that chunk, then asks the same question again, and
+again, until the answer is done. A "chunk" is usually a short piece of a word, so
+the model builds a reply a fraction of a word at a time.
+
+That is the whole trick. Everything the tool does — answering questions, writing
+an email, explaining a recipe — is this same act of continuing text.
+
+## The patterns come from a lot of human writing
+
+The model learned to predict text by reading an enormous amount of it: books,
+articles, websites, conversations. Over and over it guessed the next chunk. Then
+it checked itself against the real text and adjusted.
+
+What it kept from all that reading is **patterns** — a sense of which words and
+ideas tend to follow which. It did not keep the text itself. When people say
+"the model," they mean this large bundle of compressed patterns.
+
+## It is not a database, and it is not thinking
+
+Because it answers in full sentences, it is easy to picture a librarian looking
+up facts or a person reasoning through your problem. Neither is happening.
+
+- There is **no stored table of facts** inside it to look things up in. It
+  predicts likely text, so it can sound sure of a fact that is wrong.
+- There is **no thought or feeling** behind the words. It has no goals and does
+  not know what it does not know. Text that reads like careful reasoning is just
+  the pattern of how people write when they reason.
+
+Keep this in mind and the mistakes stop being surprising.
+
+## Why it can still say something new
+
+If it only keeps patterns, how does it write a sentence no one has written
+before? Because patterns combine. It can borrow the shape of a cover letter, the
+topic of your hobby, and the tone you asked for. Then it predicts a path through
+all three at once. The result is new text, built from old patterns.
+
+<TryIt
+  prompt="In two sentences, explain what a large language model is doing when it answers a question. Write it for someone who has never used one."
+  lookFor="A plain answer about predicting or continuing text — not a claim that it 'searches' or 'knows' facts. If the answer talks about a database, ask it to try again."
+/>
+
+You now have the core idea: an LLM continues text using patterns it learned from
+human writing. Next, you will see what that makes it good and bad at.
