@@ -1,0 +1,219 @@
+---
+id: how-to-talk-to-it
+order: 3
+minutes: 10
+title: How to talk to it (prompting)
+knowledgeCheck:
+  - prompt: >-
+      You want a thank-you note for a coworker who covered your shift. Which
+      opening gives the model the most to work with?
+    correctOptionId: context
+    options:
+      - id: context
+        text: >-
+          "Write a short, warm thank-you note to a coworker who covered my
+          weekend shift. Keep it to three sentences and casual, not formal."
+        explanation: >-
+          Right. It names the purpose, the reader, the length, and the tone. The
+          model has enough to hit the target on the first try.
+      - id: bare
+        text: >-
+          "Write a thank-you note."
+        explanation: >-
+          Too bare. The model has to guess who it is for, how long, and how
+          formal. You will spend more time fixing its guesses than you saved.
+      - id: polite
+        text: >-
+          "Please write me a really good thank-you note, thank you so much."
+        explanation: >-
+          Being polite is fine, but "really good" tells the model nothing. Good
+          for what reader, what length, what tone? None of that is here.
+  - prompt: >-
+      The model's first answer is close but too long and a little stiff. What is
+      the best next move?
+    correctOptionId: iterate
+    options:
+      - id: iterate
+        text: >-
+          Reply in the same chat: "Cut this to half the length and make it sound
+          more relaxed."
+        explanation: >-
+          Right. Treat the first answer as a draft. The model keeps the context
+          and just applies your edit, the way you would brief a person.
+      - id: restart
+        text: >-
+          Start a brand-new chat and write the whole prompt again from scratch.
+        explanation: >-
+          Wasteful. You throw away the context the model already has. A
+          follow-up message is faster and usually better.
+      - id: accept
+        text: >-
+          Use it as is — the model already gave its best answer.
+        explanation: >-
+          Not true. The first answer is a starting point, not a final one. A
+          quick follow-up almost always improves it.
+  - prompt: >-
+      Why does adding "Here is an example of the style I want:" and pasting a
+      short sample help?
+    correctOptionId: shows
+    options:
+      - id: shows
+        text: >-
+          It shows the model the target instead of describing it, so the output
+          matches your example more closely.
+        explanation: >-
+          Right. One concrete example carries more than a paragraph of
+          adjectives. The model is good at matching a pattern you give it.
+      - id: trains
+        text: >-
+          It permanently teaches the model your writing style for future chats.
+        explanation: >-
+          No. The example only affects this conversation. A plain model does not
+          remember it after the chat ends.
+      - id: faster
+        text: >-
+          It makes the model answer faster.
+        explanation: >-
+          No. Speed is about length and load, not examples. The example changes
+          the quality and fit of the answer, not the speed.
+  - prompt: >-
+      You need to plan a family reunion: guest list, budget, venue, food, and a
+      schedule. What is the better approach?
+    correctOptionId: steps
+    options:
+      - id: steps
+        text: >-
+          Ask for an outline of the steps first, then work through one step per
+          message.
+        explanation: >-
+          Right. Breaking a big ask into steps keeps each answer focused and
+          lets you correct course before the model builds on a wrong turn.
+      - id: onego
+        text: >-
+          Ask for the entire plan, fully detailed, in one message.
+        explanation: >-
+          You can, but the answer will be long, shallow in places, and hard to
+          fix. One wrong assumption early runs through the whole thing.
+      - id: vague
+        text: >-
+          Ask "help me plan a reunion" and see what it says.
+        explanation: >-
+          That gets you a generic checklist. Without your numbers and
+          constraints, none of it is tailored to your actual reunion.
+---
+
+import TryIt from "../../components/TryIt.astro";
+
+The same tool gives a weak answer or a strong one depending on how you ask. This
+Lesson is the part that pays off every time you use it: a few habits that turn a
+vague reply into one you can actually use.
+
+## Give it context
+
+The model cannot see your situation. It only has the words in your prompt. So
+tell it what a person helping you would need to know:
+
+- **Who you are:** "I'm a parent," "I run a small bakery," "I'm new to this job."
+- **The purpose:** what the text is for and what you want it to achieve.
+- **The audience:** who will read it — a landlord, a child, a hiring manager.
+
+A prompt with context does not need to be long. It needs to answer "for whom,
+and why."
+
+## State the form you want
+
+Tell the model the shape of the answer, or it will pick one for you:
+
+- **Length:** "three sentences," "one paragraph," "a short list."
+- **Format:** a list, a table, an email, bullet points.
+- **Tone:** warm, plain, formal, direct.
+
+If you do not say, you often get five paragraphs when you wanted three lines.
+
+## Show an example
+
+If you have a sample of what you want, paste it in. Write "Here is the style I'm
+going for:" and add a short example. One example does more than a paragraph of
+description. The model is good at matching a pattern you hand it.
+
+## Treat the first answer as a draft
+
+The first reply is a starting point. Read it, then say what to change, in the
+same chat:
+
+- "Make it shorter."
+- "Drop the last paragraph."
+- "Say it more simply — my reader is 70 and not technical."
+
+The model keeps the earlier context, so each follow-up builds on it. This back
+and forth is normal and it is where most of the quality comes from.
+
+## Break a big ask into steps
+
+For anything with several parts — a trip, a budget, a long document — do not ask
+for all of it at once. Ask for an outline first. Then work through one piece per
+message. Small answers are easier to check, and you catch a wrong turn before
+the model builds on it.
+
+## "Act as" and "write for"
+
+You can point the model at a role or a reader:
+
+- "Act as a careful proofreader and mark what is unclear."
+- "Explain this like you are talking to a 10-year-old."
+- "Write this for someone who has never used a computer."
+
+This is a shortcut for setting tone and level without spelling out every rule.
+
+## Before and after: the same task, two prompts
+
+The task: email your building manager about a leaking kitchen tap.
+
+**Lazy prompt:**
+
+> Write an email about my sink.
+
+You get a generic email. It invents details — how long it has leaked, how bad it
+is, a unit number — because you did not give any. You have to rewrite most of it.
+
+**Better prompt:**
+
+> Write a short, polite email to my building manager. I'm in apartment 4B. The
+> kitchen tap has dripped for three days and it's getting worse. Ask them to
+> send someone this week. Keep it to four sentences.
+
+Now the email has your real details, the right length, a clear ask, and a tone
+you can send as is. Same tool, same task — the difference is entirely in the
+prompt.
+
+<TryIt
+  prompt="Write an email about my sink."
+  lookFor="A vague email with invented details — a made-up unit number, a guess at how long it's been broken. Notice everything the model had to make up because you didn't tell it."
+/>
+
+<TryIt
+  prompt="Write a short, polite email to my building manager. I'm in apartment 4B. The kitchen tap has dripped for three days and it's getting worse. Ask them to send someone this week. Keep it to four sentences."
+  lookFor="A four-sentence email with your details, a clear request, and a tone you could send without editing. Compare it to the vague version above."
+/>
+
+## Try it: prompt it badly, then improve it twice
+
+Pick a real task — say, a message to cancel a standing appointment.
+
+1. **Round one:** paste "Write a message canceling my appointment." See how much
+   it has to guess.
+2. **Round two:** add context and form. Who is it to, how formal, how long, and
+   do you want a new time offered?
+3. **Round three:** reply to its answer with one fix — shorter, warmer, or add a
+   specific reason.
+
+<TryIt
+  prompt="Write a message canceling my appointment."
+  lookFor="A generic cancellation with placeholders or invented specifics. This is your baseline — the next two rounds should visibly beat it."
+/>
+
+Each round should get closer to something you would actually send. That gap,
+closing, is prompting.
+
+Next, you will see the traps to watch for — the ways a confident answer can still
+lead you wrong.
