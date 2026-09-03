@@ -1,0 +1,186 @@
+---
+id: putting-it-to-work
+order: 6
+minutes: 6
+title: Putting it to work
+knowledgeCheck:
+  - prompt: >-
+      You want help replying to a tense email from a coworker. Which prompt gives
+      you the most to work with?
+    correctOptionId: describe
+    options:
+      - id: describe
+        text: >-
+          Give the gist of the situation, say the tone you want, and ask for a
+          length — "calm, not defensive, three or four sentences."
+        explanation: >-
+          Right. Context plus the tone and form you want is the same recipe from
+          Lesson 3. It leaves you a draft close to sendable.
+      - id: handle
+        text: >-
+          Say "here is the email, handle this" and let it decide everything.
+        explanation: >-
+          Weak. With no tone or goal, you get a generic template you have to
+          rewrite anyway.
+      - id: one-word
+        text: >-
+          Type "angry email help" and see what comes back.
+        explanation: >-
+          Too thin. A few words give the tool nothing to aim at, so the reply
+          will not fit your situation.
+  - prompt: >-
+      You ask a chatbot to explain a topic you know nothing about. What is the
+      best next step after its first answer?
+    correctOptionId: followups
+    options:
+      - id: followups
+        text: >-
+          Ask follow-up questions about the parts that are still fuzzy, in the
+          same chat.
+        explanation: >-
+          Right. The first answer is a starting point. Follow-ups in the same
+          chat let it build on what it already told you.
+      - id: accept
+        text: >-
+          Take the first answer as the full picture and move on.
+        explanation: >-
+          Risky. A first pass is usually an overview. It may skip the exact
+          thing you needed and can still contain errors.
+      - id: newchat
+        text: >-
+          Open a fresh chat for every follow-up question.
+        explanation: >-
+          Unhelpful. A new chat forgets the earlier answer, so you lose the
+          thread and repeat yourself.
+  - prompt: >-
+      You paste a long report in and ask for a summary. Why check the summary
+      against the report?
+    correctOptionId: miss
+    options:
+      - id: miss
+        text: >-
+          It can drop a key point or state something the report does not
+          actually say.
+        explanation: >-
+          Right. A summary is a compression, and the tool can smooth over or
+          invent detail. Skim the source for anything that matters.
+      - id: length
+        text: >-
+          Summaries are always too short to be useful.
+        explanation: >-
+          Not the issue. You can ask for more detail. The concern is accuracy,
+          not length.
+      - id: never
+        text: >-
+          No need — it read the whole document, so it cannot be wrong.
+        explanation: >-
+          Not true. Reading the text does not stop it from misreading a number
+          or missing the point buried in the middle.
+  - prompt: >-
+      You are stuck on a task and not sure what to even ask. What is a good way
+      to use a chatbot?
+    correctOptionId: talk
+    options:
+      - id: talk
+        text: >-
+          Describe where you are, what you have tried, and where you are stuck,
+          and ask it to help you think it through.
+        explanation: >-
+          Right. Talking the task through out loud often surfaces the next step.
+          The tool is good at organizing a messy situation.
+      - id: wait
+        text: >-
+          Do not use it until you can phrase a clean, specific question.
+        explanation: >-
+          You do not have to. A rough description of the mess is a fine starting
+          prompt, and the reply can help you sharpen the question.
+      - id: answer
+        text: >-
+          Ask it to just give you the final answer with no discussion.
+        explanation: >-
+          That skips the useful part. When you are unsure of the shape of the
+          problem, the back-and-forth is what helps.
+---
+
+import TryIt from "../../components/TryIt.astro";
+
+You have the mental model and the habits. This Lesson is just practice. It walks
+through five everyday tasks. Each one gives you a prompt to copy and a note on
+what to check in the reply. Change the details to fit your own life.
+
+## Reply to an awkward email
+
+A coworker sent a short, cold email and you are not sure how to answer without
+making it worse. Give the tool the gist and the tone you want, not the real
+thread.
+
+<TryIt
+  prompt="Help me reply to a coworker who emailed asking, a bit sharply, why a report was late. It was late because I was waiting on numbers from another team. I want to sound calm and professional, not defensive, and offer a new date. Three or four sentences."
+  lookFor="A short reply that owns the delay without over-apologizing, names the cause plainly, and gives a clear next date. If it sounds stiff, reply with 'warmer and shorter' and send that."
+/>
+
+Check that it did not invent a specific date or a detail you did not give.
+Swap in the real date before you send.
+
+## Plan something
+
+You want to plan a weekend trip, a birthday, or just your week, and your
+thoughts are scattered. Hand the tool the constraints and let it build the
+first draft.
+
+<TryIt
+  prompt="Help me plan a two-day weekend trip to a coastal town for two adults who like walking, good coffee, and not rushing. We arrive Saturday late morning and leave Sunday evening. Give a loose schedule with a couple of options each half-day, not a packed itinerary."
+  lookFor="A relaxed plan with room to move and a note where timing is tight. Treat any named cafe or hotel as a lead to look up yourself, not a booking."
+/>
+
+A good planning reply gives you a structure to react to. Push back on it: "less
+driving," "add a rainy-day option," "we are on a tighter budget."
+
+## Learn a new topic
+
+You keep hearing a term and nodding along. Ask for a beginner explanation, then
+ask follow-ups in the same chat until it clicks.
+
+<TryIt
+  prompt="Explain what a mortgage escrow account is, to someone who has never owned a home. Use plain words and one everyday example. Keep it to a short paragraph."
+  lookFor="A clear paragraph with a concrete example and no jargon left undefined. If a part is still fuzzy, ask a plain follow-up in the same chat and let it build on its own answer."
+/>
+
+The value is in the follow-ups. Ask "what would you compare that to?" or "what
+do people get wrong about this?" Keep going until you could explain it to
+someone else.
+
+## Summarize a long document
+
+You have a long report, contract, or thread and 10 minutes. Ask for a summary
+shaped the way you need it.
+
+<TryIt
+  prompt="Here is a long document. Summarize it in about 150 words for someone who has to decide whether to read the whole thing. Then list the three points that matter most and any dates or numbers I should not miss. [paste the text]"
+  lookFor="A summary that matches what you skim in the source, a short list of real key points, and correct dates and figures. If a number looks off, check it against the document — the summary can misread or invent one."
+/>
+
+Always skim the original for anything the summary might have flattened. A
+summary is a compression, and the tool can smooth over the one line that
+mattered.
+
+## Get unstuck by talking it through
+
+You are stuck and cannot even phrase a clean question. That is fine. Describe
+the mess and ask the tool to help you think.
+
+<TryIt
+  prompt="I need to tell a client that a project will slip by two weeks. I do not know how much detail to give, whether to offer something to make up for it, or how to word the opening. Help me think through what to decide, then we can draft it."
+  lookFor="Questions back to you and a short list of decisions to make, not an instant finished email. Once you have answered those, ask it to draft the message."
+/>
+
+Talking a task through out loud is a real use, not a lesser one. The
+back-and-forth is often where the next step shows up.
+
+## Keep going
+
+Every one of these used the same moves from Lesson 3. You give context. You say
+the form you want. You steer the reply with a follow-up. Re-read Lesson 3 any
+time a prompt is not landing.
+
+Next, you will see a short recap of everything you have covered.
