@@ -5,6 +5,8 @@ export default defineConfig({
   // (jsx: react-jsx, jsxImportSource: preact).
   test: {
     include: ["test/**/*.test.{ts,tsx}"],
+    // One shared `astro build` for the tests that assert on dist/ output.
+    globalSetup: ["test/global-build.ts"],
     // Node by default (build-output and schema tests). The island behaviour
     // tests opt into jsdom with a `@vitest-environment jsdom` file docblock.
   },

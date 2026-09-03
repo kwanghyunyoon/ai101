@@ -98,6 +98,27 @@ a {
 }
 .app-header {
   border-bottom-width: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space);
+}
+
+/* Language switcher (app chrome) */
+.lang-switcher ul {
+  display: flex;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.95rem;
+}
+.lang-switcher a {
+  text-decoration: none;
+}
+.lang-switcher a[aria-current="true"] {
+  color: var(--text);
+  font-weight: 700;
 }
 .app-footer {
   border-top-width: 1px;

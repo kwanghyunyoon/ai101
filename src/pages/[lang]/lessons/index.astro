@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getLessons } from "../../../lib/lessons";
+import { SITE_TITLE } from "../../../consts";
+import { liveLanguages } from "../../../i18n/config";
+import { localizePath } from "../../../i18n/routing";
+
+// A bare Lesson index for navigation during the build-out. The real home
+// screen (table of contents + progress + resume) is a later ticket.
+export function getStaticPaths() {
+  return liveLanguages().map((lang) => ({ params: { lang: lang.code } }));
+}
+
+const { lang } = Astro.params;
+const lessons = await getLessons();
+---
+
+<BaseLayout lang={lang} path="/lessons/" title={`Lessons — ${SITE_TITLE}`}>
+  <h1>Lessons</h1>
+  <ol class="lesson-list">
+    {
+      lessons.map((lesson) => (
+        <li>
+          <a href={localizePath(`/lessons/${lesson.id}/`, lang)}>
+            {lesson.data.title}
+          </a>
+          <span class="lesson-meta"> · about {lesson.data.minutes} min</span>
+        </li>
+      ))
+    }
+  </ol>
+</BaseLayout>

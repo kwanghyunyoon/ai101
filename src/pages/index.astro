@@ -1,18 +1,57 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { SITE_TITLE, SITE_TAGLINE } from "../consts";
+import { SITE_TITLE } from "../consts";
+import { DEFAULT_LANGUAGE, liveLanguages } from "../i18n/config";
+import { alternateLinks, localizePath } from "../i18n/routing";
+
+// `/` holds no content — it routes the visitor to a language. There is no
+// server (ADR 0001), so detection runs in the browser: a stored preference,
+// else `Accept-Language` via `navigator.languages`, else the default. The
+// <noscript> path and crawlers get the default language.
+const fallback = localizePath("/", DEFAULT_LANGUAGE);
+const alternates = alternateLinks("/", Astro.site ?? "https://ai101.pages.dev");
+const langs = liveLanguages()
+  .map((l) => l.label)
+  .join(" · ");
 ---
 
-<BaseLayout title={`${SITE_TITLE} — coming soon`}>
-  <h1>{SITE_TITLE}</h1>
-  <p>{SITE_TAGLINE}</p>
-  <p>
-    A course on how AI and large language models actually work — written for
-    curious adults, finishable in about 40 minutes.
-  </p>
-  <p>
-    The Course is being built in the open. Six short lessons, a knowledge check
-    after each, and honest guidance on which tools to use. No signup, no cost.
-  </p>
-  <p><strong>Check back soon.</strong></p>
-</BaseLayout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{SITE_TITLE}</title>
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    {
+      alternates.map((alt) => (
+        <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+      ))
+    }
+    <noscript>
+      <meta http-equiv="refresh" content={`0; url=${fallback}`} />
+    </noscript>
+    <script>
+      import {
+        localizePath,
+        resolvePreferredLanguage,
+      } from "../i18n/routing";
+      import { DEFAULT_LANGUAGE, LIVE_LANGUAGE_CODES } from "../i18n/config";
+      import { readStoredLanguage } from "../i18n/preference";
+
+      const lang = resolvePreferredLanguage({
+        stored: readStoredLanguage(),
+        accept:
+          navigator.languages && navigator.languages.length
+            ? navigator.languages
+            : navigator.language,
+        available: LIVE_LANGUAGE_CODES,
+        fallback: DEFAULT_LANGUAGE,
+      });
+      location.replace(localizePath("/", lang));
+    </script>
+  </head>
+  <body>
+    <p>
+      Redirecting you to <a href={fallback}>{SITE_TITLE}</a> ({langs})…
+    </p>
+  </body>
+</html>

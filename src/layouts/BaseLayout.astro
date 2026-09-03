@@ -1,13 +1,32 @@
 ---
 import "../styles/global.css";
 import { SITE_TITLE, SITE_TAGLINE } from "../consts";
+import { DEFAULT_LANGUAGE, getLanguage, liveLanguages } from "../i18n/config";
+import { alternateLinks, localizePath } from "../i18n/routing";
+import LanguageSwitcher from "../components/LanguageSwitcher.tsx";
 
 interface Props {
+  /** The page's language code (`en` / `ko` / `es`). */
+  lang?: string;
+  /** Path without the language prefix, e.g. `/lessons/what-an-llm-actually-is/`. */
+  path?: string;
   title?: string;
   description?: string;
 }
 
-const { title = SITE_TITLE, description = SITE_TAGLINE } = Astro.props;
+const {
+  lang = DEFAULT_LANGUAGE,
+  path = "/",
+  title = SITE_TITLE,
+  description = SITE_TAGLINE,
+} = Astro.props;
+
+const language = getLanguage(lang) ?? getLanguage(DEFAULT_LANGUAGE)!;
+const alternates = alternateLinks(path, Astro.site ?? "https://ai101.pages.dev");
+const switcherLanguages = liveLanguages().map((l) => ({
+  code: l.code,
+  label: l.label,
+}));
 
 // Set PUBLIC_CF_BEACON_TOKEN (build env / Cloudflare Pages) to enable the
 // cookieless Web Analytics beacon. Absent in local dev; that is fine.
@@ -15,10 +34,7 @@ const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 ---
 
 <!doctype html>
-<html lang="en">
-  <!-- lang is hardcoded for the v1 scaffold. Known debt: i18n (issue #1) makes
-       every page path-prefixed (/en, /ko, /es); this shell must then take lang
-       and hreflang alternates from the route. -->
+<html lang={language.htmlLang} dir={language.dir}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -28,11 +44,22 @@ const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/icon.svg" />
+    {
+      alternates.map((alt) => (
+        <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+      ))
+    }
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="app-header">
-      <a class="wordmark" href="/">AI 101</a>
+      <a class="wordmark" href={localizePath("/", lang)}>AI 101</a>
+      <LanguageSwitcher
+        currentLang={lang}
+        logicalPath={path}
+        languages={switcherLanguages}
+        client:idle
+      />
     </header>
     <main id="main" class="app-main">
       <slot />
