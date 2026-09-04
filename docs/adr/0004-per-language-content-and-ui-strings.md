@@ -28,7 +28,12 @@ key-value file or UI fragments into MDX.
   slugs and keys fall back to English — so a translation can land incrementally.
 - A language is not reachable until its code is in `LIVE_LANGUAGE_CODES`
   (config.ts). The content and strings can be committed and reviewed while the
-  routes stay unbuilt; `ko` and `es` both sit in exactly that state pending native review.
+  routes stay unbuilt; `ko` and `es` both sit in exactly that state. Each has
+  had an AI self-QA pass (2026-09-04: re-read against the English source,
+  checked for leftover-English fragments and cross-lesson term consistency,
+  spot-rendered) — that is not the same review the spec calls for. Neither
+  goes live until a **named native reviewer** has actually corrected it; an
+  AI re-reading its own draft cannot verify idiom, register, or cultural fit.
 - Islands that render translated text take a `lang` prop and call `ui(lang)`
   themselves (`ui.ts` has no `astro:*` imports). `TryIt` has no `lang` of its
   own and reads it off `Astro.url`.
