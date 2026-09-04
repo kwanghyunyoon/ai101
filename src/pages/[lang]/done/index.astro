@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import CompletionGuard from "../../../components/CompletionGuard.tsx";
-import { SITE_TITLE } from "../../../consts";
-import { getLessons } from "../../../lib/lessons";
+import { getLessons, lessonRoutes } from "../../../lib/lessons";
 import { liveLanguages } from "../../../i18n/config";
 import { lessonPath, localizePath } from "../../../i18n/routing";
+import { ui, fmt } from "../../../i18n/ui";
 
 // The completion screen. Reached from the home button and the end-of-Lesson
 // action once every Lesson is complete (the resume point becomes this page).
@@ -14,9 +14,9 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
-const lessons = await getLessons();
-const lessonIds = lessons.map((l) => l.id);
-const hrefs = Object.fromEntries(lessons.map((l) => [l.id, lessonPath(l.id, lang)]));
+const t = ui(lang);
+const lessons = await getLessons(lang);
+const { lessonIds, hrefs } = lessonRoutes(lessons, lang);
 const homeHref = localizePath("/", lang);
 
 // "Revisit the mental-model lesson" points at Lesson 3 when it exists, and
@@ -24,7 +24,7 @@ const homeHref = localizePath("/", lang);
 const revisit = lessons.find((l) => l.data.order === 3) ?? lessons.at(-1)!;
 ---
 
-<BaseLayout lang={lang} path="/done/" title={`You finished — ${SITE_TITLE}`}>
+<BaseLayout lang={lang} path="/done/" title={t.done.pageTitle}>
   <CompletionGuard
     lessonIds={lessonIds}
     hrefs={hrefs}
@@ -32,25 +32,17 @@ const revisit = lessons.find((l) => l.data.order === 3) ?? lessons.at(-1)!;
     client:load
   />
 
-  <h1>You finished AI 101</h1>
-  <p>
-    You worked through every lesson. You now have a working picture of what a
-    large language model does and where it fails. You can also get better answers
-    out of one. That was the goal.
-  </p>
+  <h1>{t.done.heading}</h1>
+  <p>{t.done.body}</p>
 
-  <h2>Where to go next</h2>
+  <h2>{t.done.nextHeading}</h2>
   <ul>
     <li>
-      <a href={lessonPath(revisit.id, lang)}>Revisit {revisit.data.title}</a>.
-      The mental-model lesson rewards a second read.
+      <a href={lessonPath(revisit.slug, lang)}>
+        {fmt(t.done.revisit, { title: revisit.data.title })}</a>. {t.done.revisitNote}
     </li>
-    <li>
-      Go practice in a tool you picked. Use ChatGPT, Gemini, Claude, or Grok for
-      everyday help. Use Perplexity when you need sources. Bring a real task and
-      try the before/after prompt from the lessons.
-    </li>
+    <li>{t.done.practice}</li>
   </ul>
 
-  <p><a href={homeHref}>Back to the lesson list</a></p>
+  <p><a href={homeHref}>{t.done.back}</a></p>
 </BaseLayout>

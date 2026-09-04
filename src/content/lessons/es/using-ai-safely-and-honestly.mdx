@@ -1,0 +1,223 @@
+---
+id: using-ai-safely-and-honestly
+order: 5
+minutes: 7
+title: Usar la IA de forma segura y honesta
+knowledgeCheck:
+  - prompt: >-
+      Quieres ayuda para escribir la respuesta a un correo difícil de un
+      compañero. ¿Cuál es la forma segura de usar un chatbot para esto?
+    correctOptionId: paraphrase
+    options:
+      - id: paraphrase
+        text: >-
+          Describir la situación con tus propias palabras y dejar fuera nombres,
+          números de cuenta y cualquier cosa privada sobre la otra persona.
+        explanation: >-
+          Correcto. La herramienta puede ayudarte con el tono y la estructura a
+          partir de un resumen corto. No necesita nombres reales ni detalles
+          privados para eso.
+      - id: paste-all
+        text: >-
+          Pegar todo el hilo del correo para que la herramienta tenga el contexto
+          completo.
+        explanation: >-
+          Arriesgado. Ese hilo puede tener información privada de tu compañero, y
+          en un plan gratuito puede guardarse y usarse para mejorar el modelo.
+      - id: screenshot
+        text: >-
+          Subir una captura de pantalla en lugar de texto, ya que las imágenes no
+          son datos de verdad.
+        explanation: >-
+          No. Una imagen de un documento sigue siendo el documento. La herramienta
+          puede leerlo, y se guarda igual.
+  - prompt: >-
+      Un chatbot te da una respuesta segura sobre una dosis médica para un
+      familiar. ¿Qué deberías hacer?
+    correctOptionId: verify
+    options:
+      - id: verify
+        text: >-
+          Tratarla como un punto de partida y confirmarla con un farmacéutico, un
+          médico o una fuente oficial antes de actuar.
+        explanation: >-
+          Correcto. Es una herramienta, no una autoridad. En cualquier cosa que
+          afecte la salud, el dinero o la ley, una fuente real tiene que
+          confirmarlo.
+      - id: trust
+        text: >-
+          Seguirla, porque la herramienta se entrenó con enormes cantidades de
+          texto médico.
+        explanation: >-
+          No. Entrenarse con texto médico no la hace responsable ni correcta.
+          Puede decir una dosis equivocada con el mismo tono calmado y seguro que
+          una correcta.
+      - id: ask-again
+        text: >-
+          Hacer la misma pregunta tres veces y quedarte con la respuesta que
+          repite.
+        explanation: >-
+          No. Repetir una respuesta no es lo mismo que verificarla. Puede estar
+          equivocada de forma consistente.
+  - prompt: >-
+      ¿Cuándo importa decir que usaste IA para ayudarte con algo?
+    correctOptionId: school-work
+    options:
+      - id: school-work
+        text: >-
+          Cuando alguien está evaluando el trabajo como tuyo: trabajo escolar,
+          trabajo por el que te pagan, o algo que publicas.
+        explanation: >-
+          Correcto. En esos contextos la gente confía en que el trabajo es tuyo.
+          Muchas escuelas y trabajos ya tienen reglas, así que revisa y declara.
+      - id: never
+        text: >-
+          Nunca: cómo hiciste algo es asunto tuyo.
+        explanation: >-
+          No siempre. Para una lista de compras privada, claro. Pero ocultar el
+          uso de IA en trabajo calificado, pagado o publicado puede romper reglas
+          reales.
+      - id: always
+        text: >-
+          Siempre, incluso para un mensaje a un amigo o una lista de pendientes
+          personal.
+        explanation: >-
+          Eso es más de lo necesario. Declarar importa donde el trabajo se evalúa
+          o se confía en él, no para tareas privadas de todos los días.
+  - prompt: >-
+      Le pides a un chatbot "una familia típica" o "una lista de las mejores
+      películas" y recibes una respuesta estrecha y de una sola nota. ¿Por qué?
+    correctOptionId: training
+    options:
+      - id: training
+        text: >-
+          Aprendió de escritura humana que sobrerrepresenta algunos lugares y
+          puntos de vista, así que su respuesta por defecto se inclina hacia ahí.
+        explanation: >-
+          Correcto. El texto de entrenamiento es desparejo, y el modelo no sabe
+          que no es neutral. Trata su respuesta por defecto como una opinión
+          común, no como la única.
+      - id: broken
+        text: >-
+          El modelo está fallando y hay que reiniciarlo.
+        explanation: >-
+          No. Una respuesta estrecha es el modelo funcionando normalmente: está
+          reflejando los patrones con que se entrenó, no fallando.
+      - id: privacy
+        text: >-
+          Todavía no tiene suficientes datos personales tuyos.
+        explanation: >-
+          No. Esto es sobre la escritura con que se entrenó, no sobre cuánto sabe
+          de ti. Más datos personales no arreglarían el sesgo.
+---
+
+import TryIt from "../../../components/TryIt.astro";
+
+Estas herramientas son útiles, pero cómo las usas importa. Esta lección cubre
+unos pocos hábitos. Mantén lo privado fuera del chat. Verifica los hechos antes
+de confiar en ellos. Di cuándo usaste IA. Vigila el sesgo, sal del entrenamiento
+si quieres, y trata la herramienta como una herramienta, no como una autoridad.
+
+## No pegues secretos ni datos privados de otras personas
+
+Todo lo que escribes en un chatbot sale de tu dispositivo y va a los servidores
+de una empresa. En un plan gratuito, además puede guardarse y usarse para mejorar
+el modelo, y personal de la empresa puede revisar algunos chats.
+
+Así que mantén esto fuera del recuadro:
+
+- Contraseñas, números de cuenta o de tarjeta, y códigos de un solo uso.
+- Tus números de identificación completos: pasaporte, cédula, seguro social.
+- Cualquier cosa privada sobre otra persona: la salud de un amigo, el contrato de
+  un compañero, los registros de un cliente.
+- Documentos de trabajo que tu empleador trata como confidenciales.
+
+Igual puedes recibir ayuda. Describe la situación en términos generales. Cambia
+los nombres reales por "mi jefe" o "el cliente". La herramienta no necesita los
+detalles reales para arreglar tu tono o tu estructura.
+
+## Verifica cualquier hecho antes de apoyarte en él
+
+Una lección anterior mostró que estas herramientas pueden decir un hecho
+equivocado con voz segura. Eso no deja de importar cuando la respuesta suena
+cuidadosa.
+
+Algunos hechos necesitan una fuente real antes de que actúes sobre ellos. Una
+fecha, un precio, una norma legal, una dosis médica, una cita. Confirma cada uno
+contra una herramienta de búsqueda que enlace a páginas, o una persona cuyo
+trabajo es saberlo.
+
+## Di cuándo usaste IA, donde importa
+
+Para un mensaje privado o tu propia lista de pendientes, cómo lo escribiste es
+asunto tuyo. Es distinto cuando alguien evalúa el trabajo como tuyo:
+
+- **Escuela:** muchas escuelas ya tienen reglas claras. Algunas permiten la
+  ayuda de IA si la declaras; otras no la permiten en absoluto. Pregunta antes de
+  usarla.
+- **Trabajo:** tu empleador puede tener una política sobre material escrito con
+  IA, sobre todo lo que se envía a clientes o al público.
+- **Publicación:** si sacas algo bajo tu nombre —un artículo, una reseña, una
+  foto— los lectores confían en que es tuyo. Declara el uso de IA cuando cambiaría
+  la forma en que lo leen.
+
+La prueba simple: si alguien se sentiría engañado al saber que la IA ayudó, dilo
+por adelantado.
+
+## Sus respuestas cargan el sesgo de su texto de entrenamiento
+
+El modelo aprendió de una cantidad enorme de escritura humana, y esa escritura no
+está repartida de forma pareja. Algunos lugares, idiomas y puntos de vista están
+mucho más representados que otros.
+
+Así que su respuesta "normal" se inclina hacia lo que fue más común en ese texto.
+Pídele una imagen de un "médico" o una lista de "grandes novelas" y el sesgo se
+nota. No es neutral, y no lo sabe. Trata su respuesta por defecto como una
+opinión común, no como la única.
+
+## Cómo mantener tus chats fuera del entrenamiento
+
+Casi todas las herramientas grandes ya tienen un ajuste para mantener tus
+conversaciones fuera del entrenamiento del modelo. La ruta exacta cambia, así que
+revisa la app. A finales de 2026:
+
+- **ChatGPT:** en Configuración, abre Controles de datos y desactiva la opción
+  sobre mejorar el modelo para todos.
+- **Gemini:** en Configuración, desactiva "Actividad de apps de Gemini" (también
+  en myactivity.google.com).
+- **Claude:** en Configuración, abre Privacidad y desactiva la opción sobre
+  ayudar a mejorar Claude.
+- **Copilot (Microsoft):** en Configuración, busca en Privacidad un interruptor
+  de entrenamiento del modelo y desactívalo.
+- **Grok:** en Configuración, busca una opción sobre compartir datos para
+  entrenamiento y desactívala.
+
+Desactivar el historial de chat suele sacarlo también del entrenamiento. El
+interruptor ayuda, pero es un respaldo. El hábito principal sigue siendo mantener
+lo sensible fuera del chat.
+
+## Es una herramienta, no una autoridad
+
+Un chatbot no tiene un cargo, ni una licencia, ni responsabilidad. No puede ser
+tu médico, tu abogado, tu contador ni tu terapeuta. Puede ayudarte a entender un
+tema, a redactar una pregunta para un profesional real, o a organizar lo que ya
+sabes.
+
+Para decisiones sobre tu salud, tu dinero, tu situación legal o tu seguridad,
+una persona o una fuente oficial tiene que ser en quien te apoyes.
+
+## Pruébalo: pásale el chequeo de seguridad a una tarea real
+
+Elige algo con lo que de verdad querrías ayuda esta semana. Antes de abrir un
+chatbot, pásalo por este chequeo.
+
+<TryIt
+  prompt="Quiero usar un chatbot para ayudarme con [tu tarea]. Esto es lo que escribiría: [tu borrador de instrucción]. Señala cualquier nombre, número o dato privado que debería quitar o volver genérico primero, y dime qué hechos de la respuesta voy a tener que verificar."
+  lookFor="Una respuesta útil marca cosas concretas para quitar: un nombre real, una dirección, un número de cuenta, y nombra las partes de la futura respuesta que no deberías dar por sentadas. Una respuesta débil solo dice 'se ve bien'."
+/>
+
+Quita lo que es privado, verifica lo que es un hecho, y sé honesto sobre la parte
+de la IA cuando el trabajo se evalúa como tuyo. Ese es todo el hábito.
+
+Luego, la última lección pone todo esto a trabajar en tareas reales de todos los
+días.

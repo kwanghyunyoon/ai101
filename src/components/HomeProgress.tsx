@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "preact/hooks";
 import { Progress, localStoragePort } from "../lib/progress";
+import { ui, fmt } from "../i18n/ui";
 
 /** One row of the table of contents, resolved to its localized route. */
 export interface LessonLink {
@@ -19,10 +20,13 @@ export interface LessonLink {
 export default function HomeProgress({
   lessons,
   doneHref,
+  lang,
 }: {
   lessons: LessonLink[];
   doneHref: string;
+  lang?: string;
 }) {
+  const t = ui(lang).toc;
   const ids = useMemo(() => lessons.map((l) => l.id), [lessons]);
   const progress = useMemo(() => new Progress(localStoragePort(), ids), [ids]);
 
@@ -41,10 +45,10 @@ export default function HomeProgress({
 
   const primaryHref = allDone ? doneHref : lessons[resumeIndex].href;
   const primaryLabel = allDone
-    ? "See your completion"
+    ? t.seeCompletion
     : done === 0
-      ? "Start Lesson 1"
-      : `Resume Lesson ${resumeIndex + 1}`;
+      ? fmt(t.start, { n: 1 })
+      : fmt(t.resume, { n: resumeIndex + 1 });
 
   return (
     <div class="home-toc">
@@ -58,7 +62,7 @@ export default function HomeProgress({
               </span>
               <a href={lesson.href}>{lesson.title}</a>
               <span class="lesson-meta">
-                {isDone ? "Done" : `about ${lesson.minutes} min`}
+                {isDone ? t.done : fmt(t.minutes, { minutes: lesson.minutes })}
               </span>
             </li>
           );
@@ -66,7 +70,7 @@ export default function HomeProgress({
       </ol>
 
       <p class="toc-summary" role="status">
-        {done} of {total} done
+        {fmt(t.summary, { done, total })}
       </p>
 
       <a class="primary-action" href={primaryHref}>

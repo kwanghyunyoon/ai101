@@ -31,7 +31,15 @@ export const LANGUAGES: readonly Language[] = [
 /** The language `/` falls back to when nothing else matches. Always live. */
 export const DEFAULT_LANGUAGE = "en";
 
-/** The languages that actually route. Only English until KO/ES are translated. */
+/*
+ * The languages that actually route.
+ *
+ * `ko` (issue #13) and `es` (issue #14) each have a full AI-drafted translation
+ * (all six Lessons + every UI string) but stay out of this list until a named
+ * native reviewer has corrected them. Adding a code here is the only change
+ * needed to make `/<code>/` routable, add its `hreflang`, and show it in the
+ * switcher.
+ */
 export const LIVE_LANGUAGE_CODES: readonly string[] = ["en"];
 
 export function getLanguage(code: string): Language | undefined {

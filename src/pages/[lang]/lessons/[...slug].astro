@@ -3,69 +3,75 @@ import { render } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import KnowledgeCheck from "../../../components/KnowledgeCheck.tsx";
 import LessonComplete from "../../../components/LessonComplete.tsx";
-import { getLessons } from "../../../lib/lessons";
+import { getLessons, lessonRoutes } from "../../../lib/lessons";
 import { SITE_TITLE } from "../../../consts";
 import { liveLanguages } from "../../../i18n/config";
-import { lessonPath, localizePath } from "../../../i18n/routing";
+import { localizePath } from "../../../i18n/routing";
+import { ui, fmt } from "../../../i18n/ui";
 
-// Every live language × every Lesson. Lesson content is English-only for now
-// (translations are later tickets); a live language with no translated MDX just
-// renders the English source under its prefix rather than 404ing.
+// Every live language × every Lesson. A live language with no translated MDX for
+// a given slug renders the source-language content under its prefix (see
+// getLessons) rather than 404ing.
 export async function getStaticPaths() {
-  const lessons = await getLessons();
-  return liveLanguages().flatMap((lang) =>
-    lessons.map((lesson) => ({
-      params: { lang: lang.code, slug: lesson.id },
-      props: { lesson },
-    })),
-  );
+  return (
+    await Promise.all(
+      liveLanguages().map(async (lang) => {
+        const lessons = await getLessons(lang.code);
+        return lessons.map((lesson) => ({
+          params: { lang: lang.code, slug: lesson.slug },
+          props: { lesson },
+        }));
+      }),
+    )
+  ).flat();
 }
 
 const { lang } = Astro.params;
 const { lesson } = Astro.props;
-const { Content } = await render(lesson);
+const t = ui(lang);
+const { Content } = await render(lesson.entry);
 
-const allLessons = await getLessons();
-const lessonIds = allLessons.map((l) => l.id);
-const hrefs = Object.fromEntries(
-  allLessons.map((l) => [l.id, lessonPath(l.id, lang)]),
-);
+const { lessonIds, hrefs } = lessonRoutes(await getLessons(lang), lang);
 const doneHref = localizePath("/done/", lang);
 
 // A Lesson with a `reviewed` date (the tool-comparison one) shows when its
 // facts were last checked. Render the ISO date in the Learner's language rather
 // than raw "2026-09-02".
 const reviewedLabel = lesson.data.reviewed
-  ? new Date(`${lesson.data.reviewed}T00:00:00Z`).toLocaleDateString(lang, {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      timeZone: "UTC",
+  ? fmt(t.lesson.reviewed, {
+      date: new Date(`${lesson.data.reviewed}T00:00:00Z`).toLocaleDateString(
+        lang,
+        { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" },
+      ),
     })
   : null;
 ---
 
 <BaseLayout
   lang={lang}
-  path={`/lessons/${lesson.id}/`}
+  path={`/lessons/${lesson.slug}/`}
   title={`${lesson.data.title} — ${SITE_TITLE}`}
 >
   <article class="lesson">
     <p class="lesson-meta">
-      Lesson {lesson.data.order} · about {lesson.data.minutes} min
+      {fmt(t.lesson.meta, {
+        order: lesson.data.order,
+        minutes: lesson.data.minutes,
+      })}
     </p>
     <h1>{lesson.data.title}</h1>
-    {reviewedLabel && <p class="lesson-reviewed">Last reviewed: {reviewedLabel}</p>}
+    {reviewedLabel && <p class="lesson-reviewed">{reviewedLabel}</p>}
     <Content />
   </article>
 
-  <KnowledgeCheck questions={lesson.data.knowledgeCheck} client:visible />
+  <KnowledgeCheck questions={lesson.data.knowledgeCheck} lang={lang} client:visible />
 
   <LessonComplete
-    lessonId={lesson.id}
+    lessonId={lesson.slug}
     lessonIds={lessonIds}
     hrefs={hrefs}
     doneHref={doneHref}
+    lang={lang}
     client:visible
   />
 </BaseLayout>

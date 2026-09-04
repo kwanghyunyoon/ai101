@@ -1,0 +1,227 @@
+---
+id: how-to-talk-to-it
+order: 3
+minutes: 10
+title: Cómo hablarle (instrucciones)
+knowledgeCheck:
+  - prompt: >-
+      Quieres una nota de agradecimiento para un compañero que cubrió tu turno.
+      ¿Qué inicio le da al modelo más con qué trabajar?
+    correctOptionId: context
+    options:
+      - id: context
+        text: >-
+          "Escribe una nota de agradecimiento breve y cálida para un compañero
+          que cubrió mi turno del fin de semana. Que sean tres oraciones y en
+          tono informal, no formal."
+        explanation: >-
+          Correcto. Nombra el propósito, el lector, la extensión y el tono. El
+          modelo tiene lo suficiente para dar en el blanco al primer intento.
+      - id: bare
+        text: >-
+          "Escribe una nota de agradecimiento."
+        explanation: >-
+          Demasiado escueto. El modelo tiene que adivinar para quién es, qué tan
+          larga y qué tan formal. Vas a gastar más tiempo arreglando sus
+          suposiciones del que ahorraste.
+      - id: polite
+        text: >-
+          "Por favor escríbeme una nota de agradecimiento muy buena, muchas
+          gracias."
+        explanation: >-
+          Ser cortés está bien, pero "muy buena" no le dice nada al modelo.
+          ¿Buena para qué lector, qué extensión, qué tono? Nada de eso está aquí.
+  - prompt: >-
+      La primera respuesta del modelo se acerca, pero es muy larga y un poco
+      rígida. ¿Cuál es el mejor siguiente paso?
+    correctOptionId: iterate
+    options:
+      - id: iterate
+        text: >-
+          Responder en el mismo chat: "Recórtalo a la mitad y haz que suene más
+          relajado."
+        explanation: >-
+          Correcto. Trata la primera respuesta como un borrador. El modelo
+          conserva el contexto, así que solo aplica tu cambio.
+      - id: restart
+        text: >-
+          Abrir un chat nuevo y volver a escribir toda la instrucción desde cero.
+        explanation: >-
+          Un desperdicio. Tiras el contexto que el modelo ya tiene. Un mensaje de
+          seguimiento es más rápido y suele ser mejor.
+      - id: accept
+        text: >-
+          Usarla tal cual: el modelo ya dio su mejor respuesta.
+        explanation: >-
+          No es cierto. La primera respuesta es un punto de partida, no uno
+          final. Un seguimiento rápido casi siempre la mejora.
+  - prompt: >-
+      ¿Por qué ayuda agregar "Aquí tienes un ejemplo del estilo que quiero:" y
+      pegar una muestra corta?
+    correctOptionId: shows
+    options:
+      - id: shows
+        text: >-
+          Le muestra al modelo el objetivo en lugar de describírselo, así que el
+          resultado se parece más a tu ejemplo.
+        explanation: >-
+          Correcto. Un ejemplo concreto pesa más que un párrafo de adjetivos. El
+          modelo es bueno para imitar un patrón que le das.
+      - id: trains
+        text: >-
+          Le enseña de forma permanente tu estilo de escritura para chats
+          futuros.
+        explanation: >-
+          No. El ejemplo solo afecta esta conversación. Un modelo simple no lo
+          recuerda después de que termina el chat.
+      - id: faster
+        text: >-
+          Hace que el modelo responda más rápido.
+        explanation: >-
+          No. La velocidad depende de la extensión y la carga, no de los
+          ejemplos. El ejemplo cambia la calidad y el ajuste de la respuesta, no
+          la velocidad.
+  - prompt: >-
+      Necesitas planear una reunión familiar: lista de invitados, presupuesto,
+      lugar, comida y un horario. ¿Cuál es el mejor enfoque?
+    correctOptionId: steps
+    options:
+      - id: steps
+        text: >-
+          Pedir primero un esquema de los pasos y luego trabajar un paso por
+          mensaje.
+        explanation: >-
+          Correcto. Un pedido más chico mantiene cada respuesta enfocada. Además
+          detectas un giro equivocado antes de que el modelo construya encima.
+      - id: onego
+        text: >-
+          Pedir el plan entero, con todo el detalle, en un solo mensaje.
+        explanation: >-
+          Puedes, pero la respuesta será larga, superficial en partes y difícil
+          de arreglar. Una suposición equivocada al inicio se arrastra por todo.
+      - id: vague
+        text: >-
+          Pedir "ayúdame a planear una reunión" y ver qué dice.
+        explanation: >-
+          Eso te da una lista genérica. Sin tus números y restricciones, nada
+          está hecho a la medida de tu reunión real.
+---
+
+import TryIt from "../../../components/TryIt.astro";
+
+La misma herramienta da una respuesta débil o una fuerte, según cómo preguntas.
+Esta lección es la parte que rinde siempre. Unos pocos hábitos convierten una
+respuesta vaga en una que de verdad puedes usar.
+
+## Dale contexto
+
+El modelo no puede ver tu situación. Solo tiene tu **instrucción**: las palabras
+que escribes en el recuadro. Así que dile lo que necesitaría saber una persona
+que te ayudara:
+
+- **Quién eres:** "Soy padre", "Tengo una panadería chica", "Soy nuevo en este
+  trabajo".
+- **El propósito:** para qué es el texto y qué quieres que logre.
+- **El público:** quién lo va a leer: un arrendador, un niño, alguien de
+  recursos humanos.
+
+Una instrucción con contexto no tiene que ser larga. Tiene que responder "para
+quién y por qué".
+
+## Di qué forma quieres
+
+Dile al modelo la forma de la respuesta, o elegirá una por ti:
+
+- **Extensión:** "tres oraciones", "un párrafo", "una lista corta".
+- **Formato:** una lista, una tabla, un correo, viñetas.
+- **Tono:** cálido, sencillo, formal, directo.
+
+Si no lo dices, a menudo recibes cinco párrafos cuando querías tres líneas.
+
+## Muestra un ejemplo
+
+Si tienes una muestra de lo que quieres, pégala. Escribe "Este es el estilo que
+busco:" y agrega un ejemplo corto. Un ejemplo hace más que un párrafo de
+descripción. El modelo es bueno para imitar un patrón que le entregas.
+
+## Trata la primera respuesta como un borrador
+
+La primera respuesta es un punto de partida. Léela y luego di qué cambiar, en el
+mismo chat:
+
+- "Hazlo más corto."
+- "Quita el último párrafo."
+- "Dilo más simple: mi lector tiene 70 años y no es técnico."
+
+El modelo conserva el contexto anterior, así que cada seguimiento construye
+encima. Este ir y venir es normal y es de donde viene casi toda la calidad.
+
+## Divide un pedido grande en pasos
+
+Para cualquier cosa con varias partes —un viaje, un presupuesto, un documento
+largo— no pidas todo de una vez. Pide primero un esquema. Luego trabaja un
+pedazo por mensaje. Las respuestas cortas son más fáciles de revisar, y detectas
+un giro equivocado antes de que el modelo construya encima.
+
+## Apúntalo a un rol o a un lector
+
+Dos frases cortas —"actúa como" y "escribe para"— fijan el punto de vista del
+modelo:
+
+- "Actúa como un corrector cuidadoso y marca lo que no está claro."
+- "Explícalo como si le hablaras a un niño de 10 años."
+- "Escribe esto para alguien que nunca ha usado una computadora."
+
+Es un atajo para fijar el tono y el nivel sin deletrear cada regla.
+
+## Antes y después: la misma tarea, dos instrucciones
+
+La tarea: escribirle al administrador de tu edificio sobre una llave de la cocina
+que gotea.
+
+**Instrucción floja:**
+
+> Escribe un correo sobre mi lavaplatos.
+
+Recibes un correo genérico. El modelo inventa detalles que nunca le diste: cuánto
+tiempo lleva goteando la llave, qué tan grave es, un número de departamento.
+Tienes que reescribir casi todo.
+
+**Mejor instrucción:**
+
+> Escribe un correo breve y cortés al administrador de mi edificio. Estoy en el
+> departamento 4B. La llave de la cocina lleva tres días goteando y va a peor.
+> Pídele que envíe a alguien esta semana. Que sean cuatro oraciones.
+
+Ahora el correo tiene tus datos reales, la extensión correcta, un pedido claro y
+un tono que puedes enviar tal cual. Misma herramienta, misma tarea: la
+diferencia está por completo en la instrucción.
+
+## Pruébalo: pídelo mal y luego mejóralo dos veces
+
+Haz las tres cosas en un mismo chat, un mensaje a la vez. Observa cómo la
+respuesta se acerca a algo que de verdad enviarías.
+
+**Ronda uno: la versión floja:**
+
+<TryIt
+  prompt="Escribe un mensaje para cancelar mi cita."
+  lookFor="Una cancelación genérica con marcadores o datos inventados: una fecha inventada, un motivo adivinado. Esta es tu base de comparación."
+/>
+
+**Ronda dos: agrega contexto y forma:**
+
+<TryIt
+  prompt="Escribe un mensaje de texto breve y cortés para el consultorio de mi dentista para cancelar mi limpieza de este jueves. Pide el primer horario libre en la mañana de la semana que viene. Dos o tres oraciones, amable."
+  lookFor="Un texto breve y cálido con tus datos reales, la cancelación y el pedido de un nuevo horario. Mucho más cerca de enviarse que la ronda uno."
+/>
+
+**Ronda tres: responde a esa respuesta con un solo ajuste:**
+
+<TryIt
+  prompt="Hazlo un poco más cálido y agrega que cancelo porque voy a estar de viaje por trabajo."
+  lookFor="El mismo texto, ajustado: redacción más cálida y tu motivo incorporado, sin perder la extensión ni el pedido. Ese pequeño paso de dirección es casi todo lo que son las instrucciones."
+/>
+
+Luego verás las trampas que hay que vigilar: las formas en que una respuesta
+segura igual te puede llevar por mal camino.

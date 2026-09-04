@@ -13,13 +13,15 @@ export default function LanguageSwitcher({
   lang,
   logicalPath,
   languages,
+  label = "Language",
 }: {
   lang: string;
   logicalPath: string;
   languages: Language[];
+  label?: string;
 }) {
   return (
-    <nav class="lang-switcher" aria-label="Language">
+    <nav class="lang-switcher" aria-label={label}>
       <ul>
         {languages.map((language) => {
           const isCurrent = language.code === lang;

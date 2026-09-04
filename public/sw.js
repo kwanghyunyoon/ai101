@@ -1,10 +1,10 @@
 /*
- * Service worker — v1 scaffold.
+ * Dev-only service worker.
  *
- * Deliberately a pass-through: it registers, activates immediately, and does NOT
- * intercept fetches. Precaching the whole Course for offline use is a later
- * ticket (#3+). Keeping the file here means install/activate wiring is proven
- * now and only the fetch strategy changes later.
+ * `astro dev` serves this file as-is: a harmless pass-through that registers,
+ * activates, and does NOT intercept fetches. The production build REPLACES it
+ * with a full offline-precache worker (see src/lib/precache-integration.ts and
+ * src/lib/service-worker.ts). Edit those, not this file.
  */
 self.addEventListener("install", () => {
   self.skipWaiting();

@@ -1,0 +1,134 @@
+---
+id: what-an-llm-actually-is
+order: 1
+minutes: 6
+title: Qué es en realidad un LLM
+knowledgeCheck:
+  - prompt: >-
+      En el fondo, ¿qué hace un modelo grande de lenguaje cuando te responde?
+    correctOptionId: predicts
+    options:
+      - id: predicts
+        text: Adivinar el siguiente fragmento de texto, uno a la vez
+        explanation: >-
+          Correcto. El modelo se entrenó para predecir qué sigue en un tramo de
+          texto. Tu instrucción es el comienzo; la respuesta es el modelo
+          continuando ese texto un fragmento a la vez.
+      - id: lookup
+        text: Buscar la respuesta en una base de datos de hechos guardada
+        explanation: >-
+          No exactamente. No tiene adentro una tabla de hechos para consultar.
+          Solo predice texto probable, y por eso puede sonar fluido y estar
+          equivocado al mismo tiempo.
+      - id: reasons
+        text: Razonar el problema tal como lo pensaría una persona
+        explanation: >-
+          No exactamente. No tiene pensamientos ni intenciones. Produce texto que
+          parece razonamiento porque aprendió los patrones de cómo escribe la
+          gente cuando razona.
+  - prompt: >-
+      ¿De dónde viene la capacidad de un modelo para escribir?
+    correctOptionId: patterns
+    options:
+      - id: patterns
+        text: De patrones que tomó de una cantidad enorme de escritura humana
+        explanation: >-
+          Correcto. Durante el entrenamiento leyó una cantidad enorme de texto y
+          se fue ajustando hasta volverse bueno para predecir el siguiente
+          fragmento. Lo que conserva son los patrones, no el texto.
+      - id: rules
+        text: De reglas de gramática y estilo que alguien escribió a mano
+        explanation: >-
+          No exactamente. Nadie escribió las reglas. El modelo encontró los
+          patrones por su cuenta al intentar predecir texto una y otra vez.
+      - id: internet
+        text: De una conexión en vivo a internet que consulta mientras responde
+        explanation: >-
+          No por defecto. Un modelo simple solo usa patrones de su entrenamiento.
+          Algunas herramientas añaden búsqueda web encima, pero eso es una función
+          aparte.
+  - prompt: >-
+      Un amigo dice: "El modelo solo copia frases que ya vio". ¿Cuál es la mejor
+      respuesta?
+    correctOptionId: novel
+    options:
+      - id: novel
+        text: >-
+          Puede escribir texto que nunca existió, porque trabaja a partir de
+          patrones y no de frases guardadas
+        explanation: >-
+          Correcto. Predecir el siguiente fragmento a partir de patrones le
+          permite combinar ideas de formas nuevas, así que puede responder una
+          pregunta que nadie hizo exactamente de esa manera.
+      - id: agree
+        text: "Es cierto: guarda frases y pega la que más se parece"
+        explanation: >-
+          No exactamente. Conserva patrones, no una biblioteca de frases. Por eso
+          dos personas pueden recibir redacciones distintas para la misma
+          pregunta.
+      - id: sometimes
+        text: Solo cuando está conectado a internet
+        explanation: >-
+          No exactamente. Producir redacciones nuevas viene de cómo funciona el
+          modelo, no del acceso a la web.
+---
+
+import TryIt from "../../../components/TryIt.astro";
+
+Habrás oído que deberías "usar IA". Antes de hacerlo, conviene saber qué es en
+realidad esta cosa. Casi toda la confusión con estas herramientas viene de
+imaginar la máquina equivocada.
+
+## Predice el siguiente fragmento de texto
+
+Un **modelo grande de lenguaje** (LLM, por sus siglas en inglés) es el motor que
+está dentro de herramientas como ChatGPT. Su único trabajo es predecir el
+siguiente fragmento de texto.
+
+Le das unas palabras. Se pregunta a sí mismo: dado este texto hasta ahora, ¿qué
+fragmento es más probable que siga? Agrega ese fragmento, y vuelve a hacerse la
+misma pregunta, una y otra vez, hasta terminar la respuesta. Un "fragmento" suele
+ser un pedacito de una palabra, así que el modelo arma la respuesta a una
+fracción de palabra por vez.
+
+Ese es todo el truco. Todo lo que hace la herramienta —responder preguntas,
+escribir un correo, explicar una receta— es este mismo acto de continuar texto.
+
+## Los patrones vienen de mucha escritura humana
+
+El modelo aprendió a predecir texto leyendo una cantidad enorme: libros,
+artículos, sitios web, conversaciones. Una y otra vez adivinó el siguiente
+fragmento. Después se comparó con el texto real y se ajustó.
+
+Lo que conservó de toda esa lectura son **patrones**: una noción de qué palabras
+e ideas tienden a seguir a cuáles. No conservó el texto en sí. Cuando la gente
+dice "el modelo", se refiere a este gran conjunto de patrones comprimidos.
+
+## No es una base de datos, y no está pensando
+
+Como responde en frases completas, es fácil imaginar a un bibliotecario buscando
+hechos o a una persona razonando tu problema. Ninguna de las dos cosas ocurre.
+
+- No hay **una tabla de hechos guardada** adentro para consultar. Predice texto
+  probable, así que puede sonar seguro de un hecho que es falso.
+- No hay **pensamiento ni sentimiento** detrás de las palabras. No tiene metas y
+  no sabe lo que no sabe. El texto que se lee como razonamiento cuidadoso es solo
+  el patrón de cómo escribe la gente cuando razona.
+
+Ten esto presente y los errores dejan de sorprenderte.
+
+## Por qué aun así puede decir algo nuevo
+
+Si solo conserva patrones, ¿cómo escribe una frase que nadie escribió antes?
+Porque los patrones se combinan. Puede tomar prestada la forma de una carta de
+presentación, el tema de tu pasatiempo y el tono que pediste. Después predice un
+camino que pasa por los tres a la vez. El resultado es texto nuevo, construido
+con patrones viejos.
+
+<TryIt
+  prompt="En dos oraciones, explica qué hace un modelo grande de lenguaje cuando responde una pregunta. Escríbelo para alguien que nunca ha usado uno."
+  lookFor="Una respuesta sencilla sobre predecir o continuar texto, no una afirmación de que 'busca' o 'sabe' hechos. Si la respuesta habla de una base de datos, pídele que lo intente de nuevo."
+/>
+
+Ya tienes la idea central: un LLM continúa texto usando patrones que aprendió de
+la escritura humana. Luego verás en qué lo hace bueno y en qué lo hace malo.

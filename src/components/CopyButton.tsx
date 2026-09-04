@@ -5,7 +5,15 @@ import { useState } from "preact/hooks";
  * than a hand-rolled script (ADR-0003). The prompt text is also visible and
  * selectable in the block above, so this is pure enhancement.
  */
-export default function CopyButton({ text }: { text: string }) {
+export default function CopyButton({
+  text,
+  label = "Copy prompt",
+  doneLabel = "Copied",
+}: {
+  text: string;
+  label?: string;
+  doneLabel?: string;
+}) {
   const [copied, setCopied] = useState(false);
 
   return (
@@ -22,7 +30,7 @@ export default function CopyButton({ text }: { text: string }) {
         }
       }}
     >
-      {copied ? "Copied" : "Copy prompt"}
+      {copied ? doneLabel : label}
     </button>
   );
 }

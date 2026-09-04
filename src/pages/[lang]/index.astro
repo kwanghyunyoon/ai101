@@ -1,10 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import HomeProgress from "../../components/HomeProgress.tsx";
-import { SITE_TITLE, SITE_TAGLINE } from "../../consts";
+import { SITE_TITLE } from "../../consts";
 import { getLessons } from "../../lib/lessons";
 import { liveLanguages } from "../../i18n/config";
 import { lessonPath, localizePath } from "../../i18n/routing";
+import { ui, fmt } from "../../i18n/ui";
 
 // One home per live language. A configured-but-not-live language (ko, es) is
 // simply absent from this list, so no route is generated and the build passes.
@@ -13,24 +14,22 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
-const lessons = await getLessons();
+const t = ui(lang);
+const lessons = await getLessons(lang);
 const doneHref = localizePath("/done/", lang);
 
 const links = lessons.map((lesson) => ({
-  id: lesson.id,
+  id: lesson.slug,
   title: lesson.data.title,
   minutes: lesson.data.minutes,
-  href: lessonPath(lesson.id, lang),
+  href: lessonPath(lesson.slug, lang),
 }));
 ---
 
 <BaseLayout lang={lang} path="/" title={SITE_TITLE}>
   <h1>{SITE_TITLE}</h1>
-  <p>{SITE_TAGLINE}</p>
-  <p>
-    {lessons.length} short lessons with a knowledge check after each. Your
-    progress stays in this browser — start anywhere, come back anytime.
-  </p>
+  <p>{t.home.tagline}</p>
+  <p>{fmt(t.home.lessonsIntro, { count: lessons.length })}</p>
 
-  <HomeProgress lessons={links} doneHref={doneHref} client:load />
+  <HomeProgress lessons={links} doneHref={doneHref} lang={lang} client:load />
 </BaseLayout>
