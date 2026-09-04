@@ -34,10 +34,11 @@ export const DEFAULT_LANGUAGE = "en";
 /*
  * The languages that actually route.
  *
- * `ko` has a full AI-drafted translation (all six Lessons + every UI string) but
- * stays out of this list until a named native Korean reviewer has corrected it
- * (issue #13). Flipping it to `["en", "ko"]` is the only change needed to make
- * `/ko/` routable, add its `hreflang`, and show it in the switcher.
+ * `ko` (issue #13) and `es` (issue #14) each have a full AI-drafted translation
+ * (all six Lessons + every UI string) but stay out of this list until a named
+ * native reviewer has corrected them. Adding a code here is the only change
+ * needed to make `/<code>/` routable, add its `hreflang`, and show it in the
+ * switcher.
  */
 export const LIVE_LANGUAGE_CODES: readonly string[] = ["en"];
 

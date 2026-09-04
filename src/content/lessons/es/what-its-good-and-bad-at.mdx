@@ -1,0 +1,157 @@
+---
+id: what-its-good-and-bad-at
+order: 2
+minutes: 6
+title: En qué es bueno y en qué es malo
+knowledgeCheck:
+  - prompt: >-
+      ¿Para cuál de estas tareas es más apto un modelo de lenguaje?
+    correctOptionId: rephrase
+    options:
+      - id: rephrase
+        text: Reescribir un correo brusco para que suene cortés
+        explanation: >-
+          Correcto. Darle forma a un texto que tú le entregas —reformular,
+          acortar, cambiar el tono— es justo en lo que un modelo de lenguaje es
+          bueno.
+      - id: balance
+        text: Decirte el saldo exacto de tu cuenta bancaria
+        explanation: >-
+          No. Ese es un dato concreto y en vivo, con una fuente de verdad real.
+          El modelo no tiene acceso a él y solo va a adivinar.
+      - id: tax
+        text: Calcular al centavo cuánto debes de impuestos
+        explanation: >-
+          No. Eso es matemática precisa de varios pasos con una respuesta
+          correcta. El modelo suele acertar los pasos a grandes rasgos y errar el
+          número final.
+  - prompt: >-
+      Le preguntas a un modelo por un hecho de la semana pasada y responde con
+      detalle y seguridad. ¿Cuál es la suposición prudente?
+    correctOptionId: stale
+    options:
+      - id: stale
+        text: >-
+          Su entrenamiento se detuvo en algún momento, así que los hechos
+          recientes pueden faltar o estar inventados
+        explanation: >-
+          Correcto. Un modelo simple solo conoce texto anterior al corte de su
+          entrenamiento. Para cualquier cosa reciente, consulta una herramienta
+          que de verdad busque en la web.
+      - id: trust
+        text: Suena seguro, así que los detalles probablemente sean correctos
+        explanation: >-
+          No. La redacción fluida y segura es lo que el modelo produce por
+          defecto. No es una señal de que los hechos sean correctos.
+      - id: live
+        text: Los modelos siempre tienen un flujo de noticias en vivo
+        explanation: >-
+          No. Algunas herramientas añaden búsqueda web encima, pero un modelo
+          simple no tiene un flujo en vivo y trabaja solo con texto viejo de
+          entrenamiento.
+  - prompt: >-
+      "Alucinación", en el contexto de estas herramientas, significa:
+    correctOptionId: confident
+    options:
+      - id: confident
+        text: El modelo afirma algo falso con el mismo tono fluido y seguro que la verdad
+        explanation: >-
+          Correcto. Su meta es un texto que se lea bien, no un texto que sea
+          verdadero, así que una respuesta equivocada se ve exactamente igual de
+          segura que una correcta.
+      - id: crash
+        text: El modelo se congela o muestra un mensaje de error
+        explanation: >-
+          No. Eso es una falla normal de software. La alucinación es cuando la
+          respuesta se ve bien pero el contenido es inventado.
+      - id: refuse
+        text: El modelo se niega a responder una pregunta
+        explanation: >-
+          No. Una negativa es el modelo declinando. La alucinación es lo
+          contrario: responde sin problema, pero la respuesta no es real.
+  - prompt: >-
+      ¿Cuál es el mejor hábito cuando una respuesta incluye un hecho, un nombre o
+      un número concreto?
+    correctOptionId: verify
+    options:
+      - id: verify
+        text: Usar el modelo para el borrador y luego verificar cada dato duro contra una fuente real
+        explanation: >-
+          Correcto. Apóyate en él para el lenguaje y la estructura. Confirma
+          nombres, fechas, citas y cifras en algún lugar que tenga una fuente de
+          verdad.
+      - id: ask-sure
+        text: Preguntarle al modelo "¿estás seguro?" y creerle si dice que sí
+        explanation: >-
+          Poco fiable. No sabe lo que no sabe, así que "¿estás seguro?" solo
+          produce más texto seguro.
+      - id: never
+        text: No usar nunca el modelo para nada que involucre hechos
+        explanation: >-
+          Demasiado tajante. Sigue siendo útil para organizar y explicar. La
+          idea es verificar los hechos concretos, no evitar la herramienta.
+---
+
+import TryIt from "../../../components/TryIt.astro";
+
+Saber dónde son fuertes estas herramientas y dónde fallan es lo que te evita
+confiar en una respuesta equivocada dicha con seguridad. La versión corta: un
+modelo de lenguaje es muy bueno con las palabras e inestable con cualquier cosa
+que tenga una sola respuesta correcta.
+
+## Fuerte: dar forma y explicar el lenguaje
+
+Toda la habilidad del modelo es producir texto fluido. Así que es de verdad útil
+cuando el trabajo es sobre palabras:
+
+- Redactar un correo, un mensaje o un primer intento de documento.
+- Reformular algo para que sea más corto, más cálido o más formal.
+- Resumir un artículo o un hilo largo en unos pocos puntos.
+- Explicar una idea difícil en términos sencillos.
+- Traducir un mensaje entre idiomas.
+- Generar nombres, enfoques o una lista de opciones para reaccionar.
+
+Por ejemplo: pega un correo grosero de tu arrendador y pide una respuesta calmada
+que igual deje clara tu postura. Recibes un primer borrador sólido en segundos.
+Puedes leerlo y arreglarlo tú mismo, porque ya sabes lo que querías decir. Ese es
+el punto ideal: tú sigues siendo el editor.
+
+## Débil: hechos exactos, matemática y sucesos recientes
+
+La misma máquina batalla cuando hay una sola respuesta correcta que tiene que
+dar con exactitud:
+
+- **Hechos precisos:** fechas, precios, números de teléfono, citas textuales o la
+  fuente de la que salió una afirmación. Puede producir algo que se ve bien y
+  está desviado.
+- **Matemática y conteo:** aritmética de varios pasos, totales, cualquier cosa
+  donde acercarse igual está mal.
+- **Sucesos recientes:** su entrenamiento se detuvo en algún momento. No sabe qué
+  pasó después, salvo que una herramienta de búsqueda aparte se lo entregue.
+- **Cualquier cosa con una sola fuente oficial** —una **fuente de verdad**, como
+  el registro que tiene tu banco de tu saldo, el clima de hoy o el texto de una
+  ley. El modelo no tiene forma de consultarlas por su cuenta.
+
+## Alucinación: equivocado con seguridad
+
+Cuando el modelo no tiene un hecho, no se detiene ni dice "no lo sé". Predice el
+texto que suena más natural y sigue adelante. El resultado es una
+**alucinación**: un detalle inventado, entregado con el mismo tono calmado y
+seguro que uno real.
+
+Aquí un caso concreto. Le pides tres libros sobre un tema de nicho. Te da tres
+títulos, cada uno con un autor y una editorial que suenan reales. Uno de los
+libros no existe. Nada en la redacción te avisa. La entrada falsa se lee igual
+que las reales.
+
+Esto pasa porque el texto fluido es la meta, no el texto verdadero. Y el modelo
+**no sabe lo que no sabe**: no hay una voz interior revisando sus propias
+afirmaciones.
+
+<TryIt
+  prompt="Escribe una biografía breve de mí. Me llamo [tu nombre completo] y [un dato verdadero, por ejemplo 'trabajo como enfermera en Monterrey']."
+  lookFor="Una respuesta cuidadosa se ciñe al único dato que diste y admite que no sabe el resto. Una respuesta débil inventa un año de nacimiento, escuelas o premios que suenan plausibles. Cada línea inventada es una alucinación: un buen ejemplo de lo segura y equivocada que puede estar a la vez."
+/>
+
+Así que la regla práctica: úsalo para el lenguaje y verifica tú mismo cualquier
+dato duro. Luego verás cómo la forma en que preguntas cambia lo que recibes.

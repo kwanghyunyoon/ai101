@@ -1,0 +1,190 @@
+---
+id: putting-it-to-work
+order: 6
+minutes: 6
+title: Ponerlo a trabajar
+knowledgeCheck:
+  - prompt: >-
+      Quieres ayuda para responder un correo tenso de un compañero. ¿Qué
+      instrucción te da más con qué trabajar?
+    correctOptionId: describe
+    options:
+      - id: describe
+        text: >-
+          Dar la esencia de la situación, decir el tono que quieres y pedir una
+          extensión: "calmado, no defensivo, tres o cuatro oraciones".
+        explanation: >-
+          Correcto. Contexto más el tono y la forma que quieres es la misma
+          receta de la lección 3. Te deja un borrador cerca de enviarse.
+      - id: handle
+        text: >-
+          Decir "aquí está el correo, encárgate de esto" y dejar que decida todo.
+        explanation: >-
+          Débil. Sin tono ni objetivo, recibes una plantilla genérica que igual
+          tienes que reescribir.
+      - id: one-word
+        text: >-
+          Escribir "ayuda correo enojado" y ver qué vuelve.
+        explanation: >-
+          Demasiado fino. Unas pocas palabras no le dan a la herramienta a qué
+          apuntar, así que la respuesta no va a encajar con tu situación.
+  - prompt: >-
+      Le pides a un chatbot que explique un tema del que no sabes nada. ¿Cuál es
+      el mejor siguiente paso después de su primera respuesta?
+    correctOptionId: followups
+    options:
+      - id: followups
+        text: >-
+          Hacer preguntas de seguimiento sobre las partes que siguen borrosas, en
+          el mismo chat.
+        explanation: >-
+          Correcto. La primera respuesta es un punto de partida. Los seguimientos
+          en el mismo chat le permiten construir sobre lo que ya te dijo.
+      - id: accept
+        text: >-
+          Tomar la primera respuesta como el panorama completo y seguir adelante.
+        explanation: >-
+          Arriesgado. Un primer intento suele ser un resumen. Puede saltarse
+          justo lo que necesitabas y aún contener errores.
+      - id: newchat
+        text: >-
+          Abrir un chat nuevo para cada pregunta de seguimiento.
+        explanation: >-
+          Poco útil. Un chat nuevo olvida la respuesta anterior, así que pierdes
+          el hilo y te repites.
+  - prompt: >-
+      Pegas un informe largo y pides un resumen. ¿Por qué contrastar el resumen
+      con el informe?
+    correctOptionId: miss
+    options:
+      - id: miss
+        text: >-
+          Puede omitir un punto clave o afirmar algo que el informe no dice en
+          realidad.
+        explanation: >-
+          Correcto. Un resumen es una compresión, y la herramienta puede suavizar
+          o inventar detalles. Ojea la fuente por cualquier cosa que importe.
+      - id: length
+        text: >-
+          Los resúmenes siempre son demasiado cortos para ser útiles.
+        explanation: >-
+          No es el problema. Puedes pedir más detalle. La preocupación es la
+          exactitud, no la extensión.
+      - id: never
+        text: >-
+          No hace falta: leyó el documento entero, así que no puede equivocarse.
+        explanation: >-
+          No es cierto. Leer el texto no le impide malinterpretar un número o
+          perderse el punto enterrado en el medio.
+  - prompt: >-
+      Estás atascado en una tarea y ni sabes qué preguntar. ¿Cuál es una buena
+      forma de usar un chatbot?
+    correctOptionId: talk
+    options:
+      - id: talk
+        text: >-
+          Describir dónde estás, qué has probado y dónde te atascaste, y pedirle
+          que te ayude a pensarlo.
+        explanation: >-
+          Correcto. Pensar la tarea en voz alta a menudo hace aparecer el
+          siguiente paso. La herramienta es buena para organizar una situación
+          desordenada.
+      - id: wait
+        text: >-
+          No usarlo hasta que puedas formular una pregunta limpia y concreta.
+        explanation: >-
+          No hace falta. Una descripción tosca del desorden es una buena
+          instrucción de inicio, y la respuesta puede ayudarte a afinar la
+          pregunta.
+      - id: answer
+        text: >-
+          Pedirle que solo te dé la respuesta final sin discusión.
+        explanation: >-
+          Eso se salta la parte útil. Cuando no estás seguro de la forma del
+          problema, el ir y venir es lo que ayuda.
+---
+
+import TryIt from "../../../components/TryIt.astro";
+
+Ya tienes el modelo mental y los hábitos. Esta lección es solo práctica. Recorre
+cinco tareas de todos los días. Cada una te da una instrucción para copiar y una
+nota sobre qué revisar en la respuesta. Cambia los detalles para que encajen con
+tu propia vida.
+
+## Responder un correo incómodo
+
+Un compañero mandó un correo corto y frío y no estás seguro de cómo responder sin
+empeorar las cosas. Dale a la herramienta la esencia y el tono que quieres, no el
+hilo real.
+
+<TryIt
+  prompt="Ayúdame a responderle a un compañero que me escribió preguntando, un poco cortante, por qué un informe llegó tarde. Llegó tarde porque estaba esperando números de otro equipo. Quiero sonar calmado y profesional, no defensivo, y ofrecer una nueva fecha. Tres o cuatro oraciones."
+  lookFor="Una respuesta corta que asume el retraso sin disculparse de más, nombra la causa con claridad y da una fecha próxima concreta. Si suena rígida, responde con 'más cálido y más corto' y envía eso."
+/>
+
+Revisa que no haya inventado una fecha concreta ni un detalle que no diste.
+Cambia la fecha real antes de enviar.
+
+## Planear algo
+
+Quieres planear un viaje de fin de semana, un cumpleaños, o solo tu semana, y
+tienes las ideas dispersas. Entrégale a la herramienta las restricciones y deja
+que arme el primer borrador.
+
+<TryIt
+  prompt="Ayúdame a planear un viaje de fin de semana de dos días a un pueblo costero para dos adultos a quienes les gusta caminar, el buen café y no andar apurados. Llegamos el sábado a media mañana y nos vamos el domingo por la tarde. Dame un horario flexible con un par de opciones para cada medio día, no un itinerario apretado."
+  lookFor="Un plan relajado con espacio para moverse y una nota donde los tiempos estén justos. Trata cualquier café u hotel con nombre como una pista para buscar tú mismo, no como una reserva."
+/>
+
+Una buena respuesta de planeación te da una estructura a la que reaccionar.
+Presiónala: "menos manejar", "agrega una opción para día lluvioso", "tenemos un
+presupuesto más ajustado".
+
+## Aprender un tema nuevo
+
+Sigues oyendo un término y asintiendo con la cabeza. Pide una explicación para
+principiantes y luego haz seguimientos en el mismo chat hasta que haga clic.
+
+<TryIt
+  prompt="Explica qué es una cuenta de depósito en garantía (escrow) de una hipoteca, para alguien que nunca ha sido dueño de una vivienda. Usa palabras sencillas y un ejemplo cotidiano. Que sea un párrafo corto."
+  lookFor="Un párrafo claro con un ejemplo concreto y sin tecnicismos sin definir. Si una parte sigue borrosa, haz un seguimiento sencillo en el mismo chat y deja que construya sobre su propia respuesta."
+/>
+
+El valor está en los seguimientos. Pregunta "¿con qué lo compararías?" o "¿qué
+suele malentender la gente sobre esto?". Sigue hasta que se lo podrías explicar a
+otra persona.
+
+## Resumir un documento largo
+
+Tienes un informe, un contrato o un hilo largo y 10 minutos. Pide un resumen con
+la forma que necesitas.
+
+<TryIt
+  prompt="Aquí hay un documento largo. Resúmelo en unas 150 palabras para alguien que tiene que decidir si vale la pena leerlo entero. Después lista los tres puntos que más importan y cualquier fecha o número que no debería pasar por alto. [pega el texto]"
+  lookFor="Un resumen que coincide con lo que ojeas en la fuente, una lista corta de puntos clave reales, y fechas y cifras correctas. Si un número se ve raro, contrástalo con el documento: el resumen puede malinterpretarlo o inventarlo."
+/>
+
+Siempre ojea el original por cualquier cosa que el resumen pueda haber aplanado.
+Un resumen es una compresión, y la herramienta puede suavizar justo la línea que
+importaba.
+
+## Destrabarte hablándolo
+
+Estás atascado y ni siquiera puedes formular una pregunta limpia. Está bien.
+Describe el desorden y pídele a la herramienta que te ayude a pensar.
+
+<TryIt
+  prompt="Tengo que decirle a un cliente que un proyecto se va a retrasar dos semanas. No sé cuánto detalle dar, si ofrecer algo para compensarlo, ni cómo redactar la apertura. Ayúdame a pensar qué decidir, y después lo redactamos."
+  lookFor="Preguntas de vuelta hacia ti y una lista corta de decisiones que tomar, no un correo terminado al instante. Una vez que las hayas respondido, pídele que redacte el mensaje."
+/>
+
+Hablar una tarea en voz alta es un uso real, no uno menor. El ir y venir es a
+menudo donde aparece el siguiente paso.
+
+## Sigue adelante
+
+Cada una de estas usó los mismos movimientos de la lección 3. Das contexto. Dices
+la forma que quieres. Diriges la respuesta con un seguimiento. Vuelve a leer la
+lección 3 cada vez que una instrucción no esté funcionando.
+
+Luego verás un breve repaso de todo lo que has cubierto.

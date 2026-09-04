@@ -73,3 +73,43 @@ describe("Korean edition", () => {
     }
   });
 });
+
+describe("Spanish edition", () => {
+  it("translates every English Lesson, one-to-one by slug", () => {
+    expect(slugs("es")).toEqual(slugs("en"));
+  });
+
+  it("keeps frontmatter structure aligned with the English source", () => {
+    for (const slug of slugs("en")) {
+      const en = frontmatter("en", slug);
+      const es = frontmatter("es", slug);
+      expect(es.id).toBe(en.id);
+      expect(es.order).toBe(en.order);
+      expect(es.minutes).toBe(en.minutes);
+      expect(es.reviewed).toBe(en.reviewed);
+      expect(es.knowledgeCheck).toHaveLength(en.knowledgeCheck.length);
+      es.knowledgeCheck.forEach((q: any, i: number) => {
+        expect(q.options.map((o: any) => o.id).sort()).toEqual(
+          en.knowledgeCheck[i].options.map((o: any) => o.id).sort(),
+        );
+        expect(q.correctOptionId).toBe(en.knowledgeCheck[i].correctOptionId);
+      });
+    }
+  });
+
+  it("passes the same build-time schema as the English Lessons", () => {
+    for (const slug of slugs("es")) {
+      const parsed = lessonFrontmatterSchema.safeParse(frontmatter("es", slug));
+      expect(parsed.success, `${slug}: ${parsed.error?.message}`).toBe(true);
+    }
+  });
+
+  it("is written in Spanish, not left in English", () => {
+    for (const slug of slugs("es")) {
+      const body = readFileSync(`${lessonsDir}/es/${slug}.mdx`, "utf8").split(
+        "\n---\n",
+      )[1];
+      expect(/[áéíóúñ¿¡]/.test(body), slug).toBe(true);
+    }
+  });
+});

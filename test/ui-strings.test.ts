@@ -37,8 +37,25 @@ describe("ui()", () => {
     }
   });
 
+  it("returns a fully Spanish string set", () => {
+    const es = ui("es");
+    expect(es.skipLink).toBe("Saltar al contenido");
+    expect(es.knowledgeCheck.heading).toBe("Comprobación de conocimientos");
+    expect(es.install.go).toBe("Instalar");
+    // Every leaf is either translated or deliberately identical to English (a
+    // proper noun like "GitHub") — never an untranslated English string.
+    const en = ui("en");
+    const sameAsEnglishIsFine = new Set(["privacy.questionsLink"]);
+    for (const key of leafKeys(es)) {
+      const get = (o: any) => key.split(".").reduce((x, k) => x[k], o) as string;
+      const translated =
+        get(es) !== get(en) || sameAsEnglishIsFine.has(key);
+      expect(translated, `${key} still English: ${get(es)}`).toBe(true);
+    }
+  });
+
   it("falls back to English for a language with no translation", () => {
-    expect(ui("es")).toEqual(ui("en"));
+    expect(ui("qq")).toEqual(ui("en"));
     expect(ui()).toEqual(ui("en"));
   });
 

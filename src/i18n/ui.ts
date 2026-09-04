@@ -221,7 +221,108 @@ const ko: DeepPartial<UiStrings> = {
   },
 };
 
-const TRANSLATIONS: Record<string, DeepPartial<UiStrings>> = { en, ko };
+/*
+ * Spanish (Latin America) edition. AI-drafted; awaiting correction by a named
+ * native Latin American Spanish reviewer before `es` is flipped into
+ * `LIVE_LANGUAGE_CODES` (see config.ts). LatAm register, not European.
+ */
+const es: DeepPartial<UiStrings> = {
+  skipLink: "Saltar al contenido",
+  languageLabel: "Idioma",
+  footer: {
+    license:
+      "Gratis y de código abierto. Contenido bajo licencia CC BY-SA 4.0, código bajo licencia MIT. Tu progreso se queda en tu navegador: sin cuenta, sin cookies.",
+    privacyLink: "Qué guardamos",
+  },
+  home: {
+    tagline:
+      "Aprende lo básico de la IA y los LLM en una sola sesión de unos 40 minutos. Gratis, sin registro.",
+    lessonsIntro:
+      "{count} lecciones cortas con una comprobación de conocimientos después de cada una. Tu progreso se queda en este navegador: empieza donde quieras, vuelve cuando quieras.",
+  },
+  toc: {
+    done: "Hecho",
+    minutes: "unos {minutes} min",
+    summary: "{done} de {total} hechas",
+    start: "Empezar la lección {n}",
+    resume: "Retomar la lección {n}",
+    seeCompletion: "Ver tu finalización",
+  },
+  lessons: {
+    title: "Lecciones",
+    pageTitle: "Lecciones — AI 101",
+    meta: "· unos {minutes} min",
+  },
+  lesson: {
+    meta: "Lección {order} · unos {minutes} min",
+    reviewed: "Última revisión: {date}",
+  },
+  lessonComplete: {
+    finish: "Terminar el curso",
+    next: "Marcar como hecha → siguiente lección",
+  },
+  knowledgeCheck: {
+    heading: "Comprobación de conocimientos",
+    correct: "Correcto.",
+    notQuite: "No exactamente.",
+  },
+  tryIt: {
+    label: "Pruébalo",
+    lookFor: "Qué buscar:",
+  },
+  copy: {
+    idle: "Copiar instrucción",
+    done: "Copiado",
+  },
+  install: {
+    region: "Instalar AI 101",
+    text: "Instala AI 101 en tu dispositivo: funciona por completo sin conexión.",
+    go: "Instalar",
+    dismiss: "Ahora no",
+  },
+  done: {
+    pageTitle: "Terminaste — AI 101",
+    heading: "Terminaste AI 101",
+    body: "Recorriste todas las lecciones. Ahora tienes una imagen práctica de qué hace un modelo grande de lenguaje y dónde falla. También puedes sacarle mejores respuestas. Ese era el objetivo.",
+    nextHeading: "Adónde ir después",
+    revisit: "Volver a {title}",
+    revisitNote: "La lección del modelo mental compensa una segunda lectura.",
+    practice:
+      "Ve a practicar en una herramienta que hayas elegido. Usa ChatGPT, Gemini, Claude o Grok para la ayuda de todos los días. Usa Perplexity cuando necesites fuentes. Trae una tarea real y prueba la instrucción de antes y después de las lecciones.",
+    back: "Volver a la lista de lecciones",
+  },
+  privacy: {
+    pageTitle: "Qué guardamos — AI 101",
+    heading: "Qué guardamos",
+    intro:
+      "Este sitio no tiene cuenta ni inicio de sesión. No nos das tu nombre ni tu correo. Esto es todo lo que el sitio guarda, y dónde lo guarda.",
+    storedHeading: "Guardado en tu navegador",
+    storedIntro:
+      "Se guardan dos cosas pequeñas en tu propio dispositivo, para que el sitio funcione tal como lo dejaste:",
+    storedLessons:
+      'Qué lecciones has terminado. Esto alimenta el conteo de "hecho" y el punto donde retomas.',
+    storedLanguage:
+      "Tu elección de idioma, para que el sitio se abra en ese idioma la próxima vez.",
+    storedNote:
+      "Ambas viven en el almacenamiento local: un espacio pequeño que tu navegador reserva para este sitio. Nunca salen de tu dispositivo y no podemos verlas. Borrar los datos de tu navegador las elimina, y no se rompe nada si lo haces.",
+    notHeading: "Qué no hacemos",
+    notAccount: "Sin cuenta, sin contraseña, sin inicio de sesión.",
+    notCookies: "Sin cookies.",
+    notSelling: "No vendemos ni compartimos datos. No hay datos que vender.",
+    notTracking: "No te rastreamos por otros sitios.",
+    analyticsHeading: "Conteo de visitas",
+    analyticsBody:
+      "Usamos Cloudflare Web Analytics para ver cómo se usa el sitio. Solo muestra números agregados: cuántas veces se cargó cada página, qué sitios enlazan aquí y de qué países vienen los visitantes a grandes rasgos.",
+    analyticsNote:
+      "No pone cookies. No arma un perfil de ti y no te rastrea por otros sitios.",
+    questionsHeading: "Preguntas",
+    questionsBody:
+      "El código es de código abierto. Puedes leer exactamente qué hace, o abrir un issue, en {link}.",
+    questionsLink: "GitHub",
+  },
+};
+
+const TRANSLATIONS: Record<string, DeepPartial<UiStrings>> = { en, ko, es };
 
 function deepMerge<T>(base: T, override: DeepPartial<T> | undefined): T {
   if (!override) return base;
