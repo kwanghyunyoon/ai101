@@ -23,9 +23,16 @@ const { prompt, lookFor } = Astro.props;
 // page's own URL: `/ko/lessons/…` → `ko`.
 const { lang } = splitLangFromPath(Astro.url.pathname);
 const t = ui(lang ?? undefined);
+
+// A Lesson can have several Try-Its. They'd otherwise all share the same
+// aria-label ("Try it"), which screen readers announce as indistinguishable
+// landmarks. Fold in a snippet of the (always-unique) prompt to tell them apart.
+const promptSnippet =
+  prompt.length > 40 ? `${prompt.slice(0, 40).trimEnd()}…` : prompt;
+const ariaLabel = `${t.tryIt.label}: ${promptSnippet}`;
 ---
 
-<aside class="try-it" aria-label={t.tryIt.label}>
+<aside class="try-it" aria-label={ariaLabel}>
   <p class="try-it-label">{t.tryIt.label}</p>
   <pre class="try-it-prompt">{prompt}</pre>
   <CopyButton text={prompt} label={t.copy.idle} doneLabel={t.copy.done} client:visible />
