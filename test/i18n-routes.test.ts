@@ -58,7 +58,7 @@ describe("/ language router", () => {
 
   it("emits hreflang alternates for live languages only, plus x-default", () => {
     expect(html()).toContain(
-      '<link rel="alternate" hreflang="en" href="https://ai101.pages.dev/en/">',
+      '<link rel="alternate" hreflang="en" href="https://ai101-dwa.pages.dev/en/">',
     );
     expect(html()).toContain('hreflang="x-default"');
     expect(html()).not.toContain("/ko/");
@@ -81,7 +81,7 @@ describe("app chrome", () => {
     const html = read("dist/en/lessons/what-an-llm-actually-is/index.html");
     expect(html).toContain('<html lang="en" dir="ltr">');
     expect(html).toContain(
-      'hreflang="en" href="https://ai101.pages.dev/en/lessons/what-an-llm-actually-is/"',
+      'hreflang="en" href="https://ai101-dwa.pages.dev/en/lessons/what-an-llm-actually-is/"',
     );
     expect(html).toContain('hreflang="x-default"');
   });
