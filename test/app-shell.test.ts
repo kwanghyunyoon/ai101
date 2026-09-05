@@ -5,6 +5,12 @@ import { describe, it, expect, beforeAll } from "vitest";
 const root = fileURLToPath(new URL("..", import.meta.url));
 const read = (p: string) => readFileSync(root + p, "utf8");
 
+/** Width/height from a PNG's IHDR chunk (bytes 16-23), no decoding needed. */
+function pngDimensions(path: string): { width: number; height: number } {
+  const buf = readFileSync(path);
+  return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) };
+}
+
 // The production build runs once in test/global-build.ts. These assert on the
 // rendered output a Learner / maintainer sees — not on component source.
 
@@ -41,11 +47,21 @@ describe("PWA manifest", () => {
     expect(manifest.theme_color).toMatch(/^#[0-9a-f]{6}$/i);
   });
 
-  it("points at an SVG icon that exists and shows the wordmark", () => {
-    const icon = manifest.icons.find((i: any) => i.type === "image/svg+xml");
-    expect(icon).toBeDefined();
-    expect(existsSync(root + "public" + icon.src)).toBe(true);
-    expect(read("public" + icon.src)).toContain("AI");
+  it("points at square PNG icons that exist and match their declared size", () => {
+    // Chrome's installability check doesn't rasterize SVG — it needs at least
+    // one real, decodable, square bitmap icon, or install is silently blocked
+    // (DevTools: Application > Manifest reports "Icon failed to load").
+    const pngIcons = manifest.icons.filter((i: any) => i.type === "image/png");
+    expect(pngIcons.length).toBeGreaterThan(0);
+    for (const icon of pngIcons) {
+      const path = root + "public" + icon.src;
+      expect(existsSync(path)).toBe(true);
+      const [declaredW, declaredH] = icon.sizes.split("x").map(Number);
+      expect(declaredW).toBe(declaredH);
+      const { width, height } = pngDimensions(path);
+      expect(width).toBe(declaredW);
+      expect(height).toBe(declaredH);
+    }
   });
 });
 
